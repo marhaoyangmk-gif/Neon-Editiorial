@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cosplay Gallery | Neon Editorial</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <style>
+    :root {
+      --primary:#81ecff;--primary-dim:#00d4ec;--primary-container:#00e3fd;--on-primary:#005762;
+      --secondary:#ff51fa;--secondary-dim:#ff51fa;--secondary-container:#a900a9;--on-secondary:#400040;--on-secondary-container:#fff5f9;
+      --tertiary:#ff833f;--tertiary-dim:#ff7520;--tertiary-fixed:#ff955e;--on-tertiary:#481900;
+      --surface:#0c0e10;--surface-bright:#292c2f;--surface-container-low:#111416;--surface-container:#171a1c;
+      --surface-container-high:#1d2022;--surface-container-highest:#232629;
+      --on-surface:#eeeef0;--on-surface-variant:#aaabad;--on-background:#eeeef0;--outline-variant:#46484a;
+      --font-headline:'Space Grotesk',sans-serif;--font-body:'Manrope',sans-serif;--font-label:'Plus Jakarta Sans',sans-serif;
+      --nav-h:80px;
+    }
+    :root.light-mode {
+      --primary:#00606f;--primary-dim:#004e5b;--primary-container:#81ecff;--on-primary:#ffffff;
+      --secondary:#c218bb;--secondary-container:#ffdfef;--on-secondary:#ffffff;
+      --surface:#f8fafc;--surface-bright:#ffffff;--surface-container-low:#f1f5f9;--surface-container:#e2e8f0;
+      --surface-container-high:#d1d5db;--surface-container-highest:#94a3b8;
+      --on-surface:#0f172a;--on-surface-variant:#475569;--on-background:#0f172a;--outline-variant:#cbd5e1;
+    }
+    body{transition:background-color .35s ease,color .35s ease;}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{font-family:var(--font-body);background:var(--surface);color:var(--on-surface);overflow-x:hidden;line-height:1.6;}
+    img{display:block;max-width:100%;}
+    a{text-decoration:none;color:inherit;}
+    button{cursor:pointer;border:none;background:none;font-family:inherit;}
+    .material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24;vertical-align:middle;line-height:1;}
+    .container{max-width:1400px;margin-inline:auto;padding-inline:2rem;}
+    @media(max-width:480px){.container{padding-inline:1.25rem;}}
+
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1000;background:linear-gradient(to bottom,rgba(12,14,16,.85),rgba(12,14,16,0));backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:background .3s,border-color .3s;}
+    .nav.scrolled{background:rgba(12,14,16,.97);border-color:rgba(70,72,74,.3);}
+    .nav__inner{display:flex;align-items:center;justify-content:space-between;height:100%;max-width:1400px;margin-inline:auto;padding-inline:2rem;}
+    .nav__logo{font-family:var(--font-headline);font-size:1.4rem;font-weight:700;letter-spacing:-.03em;color:var(--primary);}
+    .nav__groups{display:flex;align-items:center;gap:1.5rem;list-style:none;}
+    .nav__group{position:relative;}
+    .nav__group-btn{display:flex;align-items:center;gap:4px;font-family:var(--font-body);font-size:.88rem;color:rgba(238,238,240,.8);padding:1rem 0;transition:color .25s;}
+    .nav__group-btn:hover,.nav__group-btn.active{color:var(--primary);}
+    .nav__dropdown{position:absolute;top:100%;left:0;min-width:180px;background:var(--surface-container-high);border:1px solid rgba(70,72,74,.2);border-radius:.75rem;padding:.5rem 0;box-shadow:0 20px 40px rgba(0,0,0,.4);backdrop-filter:blur(16px);opacity:0;transform:translateY(8px);pointer-events:none;transition:opacity .25s,transform .25s;}
+    .nav__group:hover .nav__dropdown,.nav__group:focus-within .nav__dropdown{opacity:1;transform:translateY(0);pointer-events:auto;}
+    .nav__dropdown a{display:block;padding:.75rem 1.5rem;font-size:.85rem;color:rgba(238,238,240,.8);transition:color .2s,background .2s;}
+    .nav__dropdown a:hover{color:var(--primary);background:rgba(129,236,255,.06);}
+    .nav__dropdown a.dd-active{color:var(--primary);background:rgba(129,236,255,.05);font-weight:700;}
+    .nav__actions{display:flex;align-items:center;gap:1rem;}
+    .nav__btn{color:var(--on-surface);display:flex;align-items:center;padding:.5rem;border-radius:50%;transition:background .2s,transform .2s;}
+    .nav__btn:hover{background:rgba(129,236,255,.1);transform:scale(1.1);}
+    #welcome-banner{display:none;font-family:var(--font-label);font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin-right:1rem;}
+    .settings-panel{position:fixed;top:calc(var(--nav-h) + 12px);right:2rem;width:280px;background:var(--surface-container-high);border:1px solid var(--outline-variant);border-radius:1rem;padding:1.5rem;box-shadow:0 20px 40px rgba(0,0,0,.5);z-index:1100;opacity:0;transform:translateY(-20px) scale(.95);pointer-events:none;transition:all .3s cubic-bezier(.16,1,.3,1);backdrop-filter:blur(20px);}
+    .settings-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:auto;}
+    .settings-panel h3{font-family:var(--font-headline);font-size:1.1rem;margin-bottom:1rem;color:var(--primary);}
+    .settings-input{width:100%;background:var(--surface-container-low);border:1px solid var(--outline-variant);border-radius:.5rem;padding:.75rem;color:var(--on-surface);font-family:var(--font-body);margin-bottom:1.25rem;}
+    .settings-save{width:100%;background:var(--primary);color:var(--on-primary);padding:.75rem;border-radius:999px;font-weight:700;font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;}
+    .nav__hamburger{display:none;flex-direction:column;gap:5px;width:28px;cursor:pointer;padding:4px;}
+    .nav__hamburger span{display:block;height:2px;background:var(--on-surface);border-radius:2px;transition:transform .35s,opacity .25s,width .25s;}
+    .nav__hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+    .nav__hamburger.open span:nth-child(2){opacity:0;width:0;}
+    .nav__hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+    .nav__drawer{position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(12,14,16,.97);backdrop-filter:blur(24px);border-bottom:1px solid rgba(70,72,74,.3);padding:1.5rem 2rem 2rem;display:flex;flex-direction:column;gap:.25rem;transform:translateY(-110%);transition:transform .4s cubic-bezier(.16,1,.3,1);z-index:999;}
+    .nav__drawer.open{transform:translateY(0);}
+    .nav__drawer a{font-family:var(--font-label);font-size:.95rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:rgba(238,238,240,.75);padding:.65rem 0;border-bottom:1px solid rgba(70,72,74,.2);transition:color .2s;}
+    .nav__drawer a:last-child{border-bottom:none;}
+    .nav__drawer a:hover{color:var(--primary);}
+    @media(max-width:768px){.nav__groups{display:none;}.nav__hamburger{display:flex;}}
+
+    /* PAGE HERO */
+    .page-hero{padding:calc(var(--nav-h) + 5rem) 0 5rem;background:var(--surface-container-low);border-bottom:1px solid rgba(70,72,74,.15);}
+    .eyebrow{font-family:var(--font-label);font-size:.7rem;font-weight:900;letter-spacing:.3em;text-transform:uppercase;color:var(--secondary);display:block;margin-bottom:1.25rem;}
+    .page-hero__title{font-family:var(--font-headline);font-size:clamp(3rem,7vw,6rem);font-weight:700;letter-spacing:-.04em;line-height:.92;color:var(--on-background);margin-bottom:1.5rem;}
+    .page-hero__title span{color:var(--primary);}
+    .page-hero__desc{font-size:1.1rem;color:var(--on-surface-variant);max-width:42rem;line-height:1.75;}
+
+    /* FILTER BAR */
+    .filter-bar{background:var(--surface);padding:1.5rem 0;border-bottom:1px solid rgba(70,72,74,.15);position:sticky;top:var(--nav-h);z-index:100;}
+    .filter-bar__inner{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;}
+    .filter-label{font-family:var(--font-label);font-size:.65rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--on-surface-variant);margin-right:.5rem;}
+    .chip{font-family:var(--font-label);font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.5rem 1.25rem;border-radius:999px;border:1px solid rgba(70,72,74,.35);color:var(--on-surface-variant);background:transparent;transition:all .2s;}
+    .chip:hover{border-color:var(--primary);color:var(--primary);background:rgba(129,236,255,.05);}
+    .chip.active{background:var(--primary);color:var(--on-primary);border-color:var(--primary);}
+    .chip--fav.active{background:var(--secondary);color:#fff;border-color:var(--secondary);}
+    .fav-tally{margin-left:auto;font-family:var(--font-label);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--secondary);display:flex;align-items:center;gap:.4rem;}
+    .fav-tally__num{background:var(--secondary);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:900;}
+
+    /* MASONRY GRID */
+    .gallery-section{padding:4rem 0 6rem;background:var(--surface-container-low);}
+    .masonry{columns:4;column-gap:1.5rem;}
+    @media(max-width:1100px){.masonry{columns:3;}}
+    @media(max-width:720px){.masonry{columns:2;}}
+    @media(max-width:420px){.masonry{columns:1;}}
+
+    .g-card{break-inside:avoid;margin-bottom:1.5rem;border-radius:.75rem;overflow:hidden;position:relative;background:var(--surface-container-high);cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;}
+    .g-card:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.5);}
+    .g-card img{width:100%;display:block;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1);}
+    .g-card:hover img{transform:scale(1.06);}
+    .g-card__overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:1.25rem;opacity:0;transition:opacity .3s;}
+    .g-card:hover .g-card__overlay{opacity:1;}
+    .g-card__tag{font-family:var(--font-label);font-size:.6rem;font-weight:900;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.4rem;}
+    .g-card__name{font-family:var(--font-headline);font-size:1rem;font-weight:700;color:#fff;line-height:1.3;}
+    .g-card__sub{font-size:.75rem;color:rgba(255,255,255,.65);margin-top:.25rem;}
+
+    .heart-btn{position:absolute;top:.9rem;right:.9rem;width:36px;height:36px;border-radius:50%;background:rgba(12,14,16,.6);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);transition:all .25s;z-index:2;}
+    .heart-btn:hover{background:rgba(255,81,250,.2);color:var(--secondary);transform:scale(1.15);}
+    .heart-btn.active{background:var(--secondary);color:#fff;border-color:var(--secondary);}
+    .heart-btn .material-symbols-outlined{font-size:1.15rem;}
+
+    /* Empty state */
+    .empty-state{text-align:center;padding:6rem 2rem;display:none;}
+    .empty-state.show{display:block;}
+    .empty-state p{color:var(--on-surface-variant);font-size:1rem;margin-top:1rem;}
+
+    /* Toast */
+    .ls-toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(20px);background:var(--surface-container-highest);border:1px solid rgba(70,72,74,.3);border-radius:999px;padding:.65rem 1.5rem;font-family:var(--font-label);font-size:.72rem;font-weight:700;letter-spacing:.1em;color:var(--on-surface);z-index:9999;opacity:0;transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap;}
+    .ls-toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+    /* FOOTER */
+    .footer{background:var(--surface-container-low);border-top:1px solid rgba(70,72,74,.15);padding:3rem 0;}
+    .footer__inner{display:grid;grid-template-columns:1fr auto;align-items:center;gap:2rem;}
+    @media(max-width:640px){.footer__inner{grid-template-columns:1fr;text-align:center;}.footer__links{justify-content:center;}}
+    .footer__logo{font-family:var(--font-headline);font-size:1.1rem;font-weight:900;color:var(--on-surface);margin-bottom:.35rem;}
+    .footer__copy{font-size:.78rem;color:rgba(238,238,240,.4);}
+    .footer__links{display:flex;flex-wrap:wrap;gap:1.5rem;}
+    .footer__links a{font-family:var(--font-label);font-size:.68rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(238,238,240,.5);transition:color .25s;}
+    .footer__links a:hover{color:var(--secondary);}
+
+    [data-reveal]{opacity:0;transform:translateY(24px);transition:opacity .65s cubic-bezier(.16,1,.3,1),transform .65s cubic-bezier(.16,1,.3,1);}
+    [data-reveal].visible{opacity:1;transform:translateY(0);}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo">NEON EDITORIAL</a>
+    <ul class="nav__groups" role="list">
+      <li class="nav__group">
+        <button class="nav__group-btn">Main <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+        <div class="nav__dropdown"><a href="index.html">Home</a><a href="about.html">About</a></div>
+      </li>
+      <li class="nav__group">
+        <button class="nav__group-btn">Content <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+        <div class="nav__dropdown"><a href="news.html">News</a><a href="events.html">Events</a></div>
+      </li>
+      <li class="nav__group">
+        <button class="nav__group-btn active" style="color:var(--primary)">Community <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+        <div class="nav__dropdown" style="min-width:210px">
+          <a href="gallery.html" class="dd-active">Cosplay Gallery</a>
+          <a href="spotlight.html">Spotlight</a>
+        </div>
+      </li>
+      <li class="nav__group">
+        <button class="nav__group-btn">Interaction <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+        <div class="nav__dropdown"><a href="reviews.html">Reviews</a><a href="contact.html">Contact</a></div>
+      </li>
+    </ul>
+    <div class="nav__actions">
+      <span id="welcome-banner"></span>
+      <button id="theme-toggle" class="nav__btn" aria-label="Toggle theme">
+        <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+      </button>
+      <button id="user-toggle" class="nav__btn" aria-label="User settings">
+        <span class="material-symbols-outlined">account_circle</span>
+      </button>
+    </div>
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="settings-panel" id="settings-panel">
+  <h3>User Identity</h3>
+  <p style="font-size:.75rem;color:var(--on-surface-variant);margin-bottom:1rem;">Set your name for a personalised experience.</p>
+  <input type="text" id="user-name-input" class="settings-input" placeholder="Your Name" maxlength="20">
+  <button id="save-settings" class="settings-save">Save Identity</button>
+</div>
+
+<div class="nav__drawer" id="nav-drawer">
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="news.html">News</a><a href="events.html">Events</a>
+  <a href="gallery.html">Cosplay Gallery</a><a href="spotlight.html">Spotlight</a>
+  <a href="reviews.html">Reviews</a><a href="contact.html">Contact</a>
+</div>
+
+<main>
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container" data-reveal>
+      <span class="eyebrow">Community · The Gallery</span>
+      <h1 class="page-hero__title">Cosplay<br/><span>Gallery</span></h1>
+      <p class="page-hero__desc">
+        World-class cosplay artists bringing iconic anime characters to life with
+        breathtaking precision. Filter by series — your favourites are saved locally and
+        remembered every visit.
+      </p>
+    </div>
+  </section>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar">
+    <div class="container">
+      <div class="filter-bar__inner">
+        <span class="filter-label">Filter by</span>
+        <button class="chip active" data-filter="all">All</button>
+        <button class="chip" data-filter="Demon Slayer">Demon Slayer</button>
+        <button class="chip" data-filter="Attack on Titan">Attack on Titan</button>
+        <button class="chip" data-filter="Naruto">Naruto</button>
+        <button class="chip" data-filter="One Piece">One Piece</button>
+        <button class="chip" data-filter="Jujutsu Kaisen">JJK</button>
+        <button class="chip" data-filter="My Hero Academia">MHA</button>
+        <button class="chip chip--fav" data-filter="favourites">
+          <span class="material-symbols-outlined" style="font-size:.9rem;margin-right:3px">favorite</span>Favourites
+        </button>
+        <div class="fav-tally">
+          <span class="material-symbols-outlined" style="font-size:1rem">favorite</span>
+          <span class="fav-tally__num" id="fav-num">0</span> saved
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <section class="gallery-section">
+    <div class="container">
+      <div class="masonry" id="gallery-grid"></div>
+      <div class="empty-state" id="empty-state">
+        <span class="material-symbols-outlined" style="font-size:3.5rem;opacity:.25">heart_broken</span>
+        <p>No favourites yet — click ♡ on any photo to save it here.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="ls-toast" id="ls-toast"></div>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>
+      <div class="footer__logo">NEON EDITORIAL.</div>
+      <div class="footer__copy">© 2025 Neon Editorial. The Electric Curator.</div>
+    </div>
+    <nav class="footer__links">
+      <a href="index.html">Home</a><a href="about.html">About</a>
+      <a href="news.html">News</a><a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+/* ── COSPLAY DATA: real famous cosplayers ─────────────────── */
+const DATA = [
+  { id:'c01', series:'Demon Slayer',      character:'Nezuko Kamado',
+    cosplayer:'Enako', country:'Japan 🇯🇵',
+    img:'image3/nezuko.jpeg',
+    tag:'WCS Champion', color:'var(--secondary)' },
+
+  { id:'c02', series:'Demon Slayer',      character:'Inosuke Hashibira',
+    cosplayer:'Yuriko Tiger', country:'Brazil 🇧🇷',
+    img:'image3/inosuke.jpg',
+    tag:'SDCC Featured', color:'var(--tertiary-fixed)' },
+
+  { id:'c03', series:'Attack on Titan',   character:'Levi Ackerman',
+    cosplayer:'Leon Chiro', country:'Italy 🇮🇹',
+    img:'image3/Levi.jpg',
+    tag:'Lucca Comics Award', color:'var(--primary)' },
+
+  { id:'c04', series:'Attack on Titan',   character:'Mikasa Ackerman',
+    cosplayer:'Narga-Lifestream', country:'Russia 🇷🇺',
+    img:'image3/Mikasa.jpg',
+    tag:'Best Craftsmanship', color:'var(--secondary)' },
+
+  { id:'c05', series:'Naruto',            character:'Hinata Hyuga',
+    cosplayer:'Enako', country:'Japan 🇯🇵',
+    img:'image3/Hinata.jpg',
+    tag:'AnimeJapan 2022', color:'var(--secondary)' },
+
+  { id:'c06', series:'Naruto',            character:'Naruto Uzumaki',
+    cosplayer:'Kaname☆', country:'Japan 🇯🇵',
+    img:'image3/Naruto.webp',
+    tag:'AnimeJapan Feature', color:'var(--tertiary-fixed)' },
+
+  { id:'c07', series:'One Piece',         character:'Boa Hancock',
+    cosplayer:'Jessica Nigri', country:'USA 🇺🇸',
+    img:'image3/hancock.webp',
+    tag:'Anime Expo', color:'var(--secondary)' },
+
+  { id:'c08', series:'One Piece',         character:'Monkey D. Luffy',
+    cosplayer:'Asuna', country:'Japan 🇯🇵',
+    img:'image3/Luffy.jpg',
+    tag:'Masquerade Winner', color:'var(--tertiary-fixed)' },
+
+  { id:'c09', series:'My Dress-Up Darling',    character:'Marin Kitagawa',
+    cosplayer:'yuzujiangg', country:'Malaysia ',
+    img:'image3/Alley.jpg',
+    tag:'Anime Expo 2022', color:'var(--primary)' },
+
+  { id:'c10', series:'Honor Of King',    character:'Da Ji',
+    cosplayer:'Jia Jia', country:'Malaysia ',
+    img:'image3/daji.jpg',
+    tag:'Comiket Special', color:'var(--secondary)' },
+
+  { id:'c11', series:' NieR:Automata',  character:'2B',
+    cosplayer:'yuzujiangg', country:'Malaysia ',
+    img:'image3/2bNier.jpg',
+    tag:'WCS 2019 Finalist', color:'var(--tertiary-fixed)' },
+
+  { id:'c12', series:'Wuthering Waves',  character:'Luno',
+    cosplayer:'Jia Jia', country:'Malaysia ',
+    img:'image3/luno.jpg',
+    tag:'Lucca Comics 2023', color:'var(--primary)' },
+];
+
+/* ── LOCAL STORAGE: FAVOURITES ────────────────────────────── */
+const LS_KEY = 'neonEditorial_galleryFavs';
+const getFavs  = () => { try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; } };
+const saveFavs = a  => localStorage.setItem(LS_KEY, JSON.stringify(a));
+
+function toggleFav(id) {
+  let favs = getFavs();
+  const idx = favs.indexOf(id);
+  const added = idx === -1;
+  if (added) favs.push(id); else favs.splice(idx, 1);
+  saveFavs(favs);
+  updateFavUI();
+  toast(added ? `💾 Saved to localStorage · ${id}` : `🗑️ Removed · ${id}`);
+
+  // Update only this heart without full re-render (except on fav filter)
+  const btn = document.querySelector(`[data-hid="${id}"]`);
+  if (btn) {
+    btn.classList.toggle('active', added);
+    btn.querySelector('span').style.fontVariationSettings = added ? "'FILL' 1,'wght' 700,'GRAD' 0,'opsz' 24" : "'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24";
+  }
+  if (currentFilter === 'favourites') render('favourites');
+}
+
+function updateFavUI() {
+  document.getElementById('fav-num').textContent = getFavs().length;
+}
+
+/* ── RENDER ───────────────────────────────────────────────── */
+let currentFilter = 'all';
+
+function render(filter) {
+  currentFilter = filter;
+  const favs = getFavs();
+  let items = DATA;
+  if (filter === 'favourites') items = DATA.filter(d => favs.includes(d.id));
+  else if (filter !== 'all')   items = DATA.filter(d => d.series === filter);
+
+  const grid  = document.getElementById('gallery-grid');
+  const empty = document.getElementById('empty-state');
+  grid.innerHTML = '';
+
+  if (!items.length) { empty.classList.add('show'); return; }
+  empty.classList.remove('show');
+
+  items.forEach(d => {
+    const isFav = favs.includes(d.id);
+    const fill  = isFav ? "'FILL' 1,'wght' 700,'GRAD' 0,'opsz' 24" : "'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24";
+    const card  = document.createElement('div');
+    card.className = 'g-card';
+    card.innerHTML = `
+      <img src="${d.img}" alt="${d.character} cosplay by ${d.cosplayer}" loading="lazy"
+           onerror="this.style.minHeight='280px';this.style.background='var(--surface-container-highest)'"/>
+      <button class="heart-btn ${isFav?'active':''}" data-hid="${d.id}"
+              aria-label="Toggle favourite"
+              onclick="event.stopPropagation();toggleFav('${d.id}')">
+        <span class="material-symbols-outlined" style="font-variation-settings:${fill}">favorite</span>
+      </button>
+      <div class="g-card__overlay">
+        <p class="g-card__tag" style="color:${d.color}">${d.tag}</p>
+        <h3 class="g-card__name">${d.character}</h3>
+        <p class="g-card__sub">by ${d.cosplayer} · ${d.country}</p>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+/* ── TOAST ────────────────────────────────────────────────── */
+let _t;
+function toast(msg) {
+  const el = document.getElementById('ls-toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(_t); _t = setTimeout(() => el.classList.remove('show'), 2600);
+}
+
+/* ── FILTER CHIPS ─────────────────────────────────────────── */
+document.querySelectorAll('.chip').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+});
+
+/* ── USER PREFS (identical to group template) ─────────────── */
+const setPref = (k,v) => localStorage.setItem(k,v);
+const getPref = k     => localStorage.getItem(k)||'';
+
+const themeToggle   = document.getElementById('theme-toggle');
+const themeIcon     = document.getElementById('theme-icon');
+const userToggle    = document.getElementById('user-toggle');
+const settingsPanel = document.getElementById('settings-panel');
+const nameInput     = document.getElementById('user-name-input');
+const saveBtn       = document.getElementById('save-settings');
+const welcomeBanner = document.getElementById('welcome-banner');
+
+const updateWelcome = n => { welcomeBanner.textContent = n?`Welcome, ${n}`:''; welcomeBanner.style.display=n?'block':'none'; };
+const doToggleTheme = () => {
+  const light = document.documentElement.classList.toggle('light-mode');
+  themeIcon.textContent = light ? 'dark_mode' : 'light_mode';
+  setPref('user_theme', light?'light':'dark');
+};
+if (getPref('user_theme')==='light') { document.documentElement.classList.add('light-mode'); themeIcon.textContent='dark_mode'; }
+const sn = getPref('user_name'); if (sn) { updateWelcome(sn); nameInput.value=sn; }
+
+themeToggle.addEventListener('click', doToggleTheme);
+userToggle.addEventListener('click', e => { e.stopPropagation(); settingsPanel.classList.toggle('open'); });
+saveBtn.addEventListener('click', () => { const n=nameInput.value.trim(); setPref('user_name',n); updateWelcome(n); settingsPanel.classList.remove('open'); });
+document.addEventListener('click', e => { if (!settingsPanel.contains(e.target)&&e.target!==userToggle&&!userToggle.contains(e.target)) settingsPanel.classList.remove('open'); });
+
+window.addEventListener('scroll', () => { document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY>40); }, {passive:true});
+const hbg = document.getElementById('hamburger'), drw = document.getElementById('nav-drawer');
+hbg.addEventListener('click', () => { const o=hbg.classList.toggle('open'); drw.classList.toggle('open',o); hbg.setAttribute('aria-expanded',String(o)); });
+
+const ro = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');ro.unobserve(e.target);} }); },{threshold:.1});
+document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+
+/* ── INIT ─────────────────────────────────────────────────── */
+render('all');
+updateFavUI();
+</script>
+</body>
+</html>

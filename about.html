@@ -1,0 +1,2079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About Neon Editorial — The Electric Curator. Learn about our mission, our team of architects, and the manifesto driving the next generation of anime & cosplay media." />
+  <title>About | Neon Editorial — The Electric Curator</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Material Symbols -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       CSS CUSTOM PROPERTIES — Design Tokens
+    ============================================= */
+    :root {
+      --color-primary:           #81ecff;
+      --color-primary-dim:       #00d4ec;
+      --color-primary-container: #00e3fd;
+      --color-on-primary:        #005762;
+
+      --color-secondary:         #ff51fa;
+      --color-secondary-dim:     #ff51fa;
+      --color-secondary-container: #a900a9;
+      --color-on-secondary:      #400040;
+
+      --color-tertiary:          #ff833f;
+      --color-tertiary-dim:      #ff7520;
+      --color-tertiary-fixed:    #ff955e;
+      --color-on-tertiary:       #481900;
+
+      --color-surface:                  #0c0e10;
+      --color-surface-dim:              #0c0e10;
+      --color-surface-bright:           #292c2f;
+      --color-surface-container-lowest: #000000;
+      --color-surface-container-low:    #111416;
+      --color-surface-container:        #171a1c;
+      --color-surface-container-high:   #1d2022;
+      --color-surface-container-highest:#232629;
+      --color-surface-variant:          #232629;
+
+      --color-on-surface:         #eeeef0;
+      --color-on-surface-variant: #aaabad;
+      --color-on-background:      #eeeef0;
+      --color-background:         #0c0e10;
+
+      --color-outline:            #747578;
+      --color-outline-variant:    #46484a;
+
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body:     'Manrope', sans-serif;
+      --font-label:    'Plus Jakarta Sans', sans-serif;
+
+      --nav-height: 80px;
+    }
+
+    /* Light Mode Overrides */
+    :root.light-mode {
+      --color-primary:           #00606f;
+      --color-primary-dim:       #004e5b;
+      --color-primary-container: #81ecff;
+      --color-on-primary:        #ffffff;
+
+      --color-secondary:         #c218bb;
+      --color-secondary-container: #ffdfef;
+      --color-on-secondary:      #ffffff;
+
+      --color-surface:                  #f8fafc;
+      --color-surface-dim:              #f1f5f9;
+      --color-surface-bright:           #ffffff;
+      --color-surface-container-lowest: #ffffff;
+      --color-surface-container-low:    #f1f5f9;
+      --color-surface-container:        #e2e8f0;
+      --color-surface-container-high:   #d1d5db;
+      --color-surface-container-highest:#94a3b8;
+      --color-surface-variant:          #cbd5e1;
+
+      --color-on-surface:         #0f172a;
+      --color-on-surface-variant: #475569;
+      --color-on-background:      #0f172a;
+      --color-background:         #f8fafc;
+
+      --color-outline:            #94a3b8;
+      --color-outline-variant:    #cbd5e1;
+    }
+
+    /* Transition for theme switching */
+    body {
+      transition: background-color 0.35s ease, color 0.35s ease;
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-surface);
+      color: var(--color-on-surface);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a  { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* Material symbols sizing */
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+      line-height: 1;
+    }
+
+    /* =============================================
+       UTILITIES
+    ============================================= */
+    .container {
+      max-width: 1400px;
+      margin-inline: auto;
+      padding-inline: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      .container { padding-inline: 1.25rem; }
+    }
+
+    .visually-hidden {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    /* =============================================
+       NOISE OVERLAY (subtle texture)
+    ============================================= */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.028;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      z-index: 1000;
+      background: linear-gradient(to bottom, rgba(12,14,16,0.85), rgba(12,14,16,0));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid transparent;
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .nav.scrolled {
+      background: rgba(12,14,16,0.97);
+      border-color: rgba(70,72,74,0.3);
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      max-width: 1400px;
+      margin-inline: auto;
+      padding-inline: 2rem;
+    }
+    .nav__logo {
+      font-family: var(--font-headline);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--color-primary);
+    }
+
+    /* Desktop nav groups */
+    .nav__groups {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      list-style: none;
+    }
+    .nav__group { position: relative; }
+    .nav__group-btn {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: rgba(238,238,240,0.8);
+      padding: 1rem 0;
+      transition: color 0.25s;
+    }
+    .nav__group-btn:hover,
+    .nav__group-btn.active { color: var(--color-primary); }
+    .nav__group-btn.active-dot::after {
+      content: '';
+      display: block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      box-shadow: 0 0 8px var(--color-primary);
+      margin: 3px auto 0;
+    }
+
+    /* Dropdown */
+    .nav__dropdown {
+      position: absolute;
+      top: 100%; left: 0;
+      min-width: 180px;
+      background: var(--color-surface-container-high);
+      border: 1px solid rgba(70,72,74,0.2);
+      border-radius: 0.75rem;
+      padding: 0.5rem 0;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(16px);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .nav__group:hover .nav__dropdown,
+    .nav__group:focus-within .nav__dropdown {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .nav__dropdown a {
+      display: block;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.85rem;
+      color: rgba(238,238,240,0.8);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav__dropdown a:hover     { color: var(--color-primary); background: rgba(129,236,255,0.06); }
+    .nav__dropdown a.dd-active { color: var(--color-primary); background: rgba(129,236,255,0.05); font-weight: 700; }
+
+    .nav__search {
+      color: var(--color-on-surface);
+      display: flex;
+      align-items: center;
+      transition: transform 0.2s;
+    }
+    .nav__search:hover  { transform: scale(1.1); }
+    .nav__search:active { transform: scale(0.92); }
+
+    .nav__actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .nav__btn {
+      color: var(--color-on-surface);
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      border-radius: 50%;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav__btn:hover { background: rgba(129,236,255,0.1); transform: scale(1.1); }
+    .nav__btn:active { transform: scale(0.95); }
+
+    /* Welcome Banner */
+    #welcome-banner {
+      display: none;
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-right: 1rem;
+    }
+
+    /* Settings Panel */
+    .settings-panel {
+      position: fixed;
+      top: calc(var(--nav-height) + 12px);
+      right: 2rem;
+      width: 280px;
+      background: var(--color-surface-container-high);
+      border: 1px solid var(--color-outline-variant);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      z-index: 1100;
+      opacity: 0;
+      transform: translateY(-20px) scale(0.95);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      backdrop-filter: blur(20px);
+    }
+    .settings-panel.open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+    .settings-panel h3 {
+      font-family: var(--font-headline);
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--color-primary);
+    }
+    .settings-input {
+      width: 100%;
+      background: var(--color-surface-container-low);
+      border: 1px solid var(--color-outline-variant);
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      color: var(--color-on-surface);
+      font-family: var(--font-body);
+      margin-bottom: 1.25rem;
+    }
+    .settings-save {
+      width: 100%;
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+      padding: 0.75rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* Hamburger */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      width: 28px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav__hamburger span {
+      display: block; height: 2px;
+      background: var(--color-on-surface);
+      border-radius: 2px;
+      transition: transform 0.35s, opacity 0.25s, width 0.25s;
+    }
+    .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav__drawer {
+      position: fixed;
+      top: var(--nav-height); left: 0; right: 0;
+      background: rgba(12,14,16,0.97);
+      backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(70,72,74,0.3);
+      padding: 1.5rem 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      transform: translateY(-110%);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+      z-index: 999;
+    }
+    .nav__drawer.open { transform: translateY(0); }
+    .nav__drawer a {
+      font-family: var(--font-label);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(238,238,240,0.75);
+      padding: 0.65rem 0;
+      border-bottom: 1px solid rgba(70,72,74,0.2);
+      transition: color 0.2s;
+    }
+    .nav__drawer a:last-child { border-bottom: none; }
+    .nav__drawer a:hover { color: var(--color-primary); }
+
+    @media (max-width: 768px) {
+      .nav__groups    { display: none; }
+      .nav__hamburger { display: flex; }
+    }
+
+    /* =============================================
+       HERO — ABOUT
+    ============================================= */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-top: var(--nav-height);
+      overflow: hidden;
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 40%, rgba(0,229,255,0.07) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 60%, rgba(255,81,250,0.06) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 80% at 50% 100%, rgba(255,131,63,0.04) 0%, transparent 60%);
+      z-index: 2;
+    }
+
+    /* New Hero Image */
+    .hero__image {
+      position: absolute;
+      inset: 0;
+      background-image: url('image/index/14.webp');
+      background-size: cover;
+      background-position: center 20%;
+      opacity: 0.45;
+      filter: saturate(1.2) contrast(1.1);
+      z-index: 1;
+      transform: scale(1.1);
+      animation: heroZoom 20s ease-out forwards;
+    }
+    
+    @keyframes heroZoom {
+      to { transform: scale(1); }
+    }
+
+    .hero__mask {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, 
+        rgba(12, 14, 16, 0.4) 0%,
+        rgba(12, 14, 16, 0.1) 40%,
+        rgba(12, 14, 16, 0.8) 85%,
+        var(--color-surface) 100%
+      );
+      z-index: 3;
+    }
+
+    /* Animated grid lines */
+    .hero__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(129,236,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(129,236,255,0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      animation: gridShift 20s linear infinite;
+      mask-image: linear-gradient(to bottom, transparent, rgba(0,0,0,0.6) 20%, rgba(0,0,0,0.6) 80%, transparent);
+    }
+
+    @keyframes gridShift {
+      0%   { transform: translateY(0); }
+      100% { transform: translateY(80px); }
+    }
+
+    /* Floating orbs */
+    .hero__orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      animation: orbFloat 8s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+    .hero__orb--1 {
+      width: 400px; height: 400px;
+      background: rgba(0,229,255,0.08);
+      top: 10%; left: -100px;
+      animation-delay: 0s;
+    }
+    .hero__orb--2 {
+      width: 300px; height: 300px;
+      background: rgba(255,81,250,0.07);
+      top: 30%; right: -80px;
+      animation-delay: -3s;
+    }
+    .hero__orb--3 {
+      width: 200px; height: 200px;
+      background: rgba(255,131,63,0.06);
+      bottom: 20%; left: 40%;
+      animation-delay: -5s;
+    }
+
+    @keyframes orbFloat {
+      0%   { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(20px, -30px) scale(1.1); }
+    }
+
+    .hero__content {
+      position: relative;
+      z-index: 2;
+      padding-bottom: 6rem;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-on-primary);
+      background: var(--color-primary-container);
+      padding: 0.35rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 2rem;
+    }
+
+    .hero__title {
+      font-family: var(--font-headline);
+      font-size: clamp(3rem, 9vw, 7.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.9;
+      color: var(--color-on-background);
+      margin-bottom: 2.5rem;
+    }
+
+    .hero__title .accent {
+      color: var(--color-primary);
+      font-style: italic;
+      display: block;
+    }
+
+    .hero__sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--color-on-surface-variant);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .hero__cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
+      transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    }
+    .btn:active { transform: scale(0.95); }
+
+    .btn--primary {
+      background: var(--color-primary);
+      color: var(--color-on-primary);
+    }
+    .btn--primary:hover {
+      box-shadow: 0 0 30px rgba(129,236,255,0.35);
+      opacity: 0.9;
+    }
+
+    .btn--outline {
+      border: 1px solid rgba(129,236,255,0.3);
+      color: var(--color-primary);
+    }
+    .btn--outline:hover {
+      background: rgba(129,236,255,0.07);
+      border-color: rgba(129,236,255,0.6);
+    }
+
+    /* Scroll indicator */
+    .hero__scroll {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 4rem;
+      font-family: var(--font-label);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-on-surface-variant);
+      animation: fadeUp 1s 1.5s both;
+    }
+    .hero__scroll-line {
+      width: 40px; height: 1px;
+      background: linear-gradient(to right, var(--color-primary), transparent);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Manifesto card */
+    .hero__manifesto {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: min(360px, 90vw);
+      background: rgba(29,32,34,0.7);
+      border: 1px solid rgba(70,72,74,0.4);
+      border-radius: 1rem;
+      padding: 2rem;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 2;
+    }
+
+    .manifesto__tag {
+      font-family: var(--font-label);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .manifesto__title {
+      font-family: var(--font-headline);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-on-surface);
+      margin-bottom: 1.25rem;
+    }
+
+    .manifesto__dots {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.25rem;
+    }
+    .manifesto__dots span {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .manifesto__dots span:nth-child(1) { background: #ff5f57; }
+    .manifesto__dots span:nth-child(2) { background: #febc2e; }
+    .manifesto__dots span:nth-child(3) { background: #28c840; }
+
+    .manifesto__body {
+      font-size: 0.82rem;
+      color: var(--color-on-surface-variant);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .manifesto__items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .manifesto__items li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-label);
+      font-size: 0.72rem;
+      color: rgba(238,238,240,0.55);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .manifesto__items li::before {
+      content: '>';
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    @media (max-width: 960px) {
+      .hero__manifesto { display: none; }
+    }
+
+    /* =============================================
+       STATS BAR
+    ============================================= */
+    .stats {
+      background: var(--color-surface-container-low);
+      border-top: 1px solid rgba(70,72,74,0.3);
+      border-bottom: 1px solid rgba(70,72,74,0.3);
+      padding: 2.5rem 0;
+    }
+
+    .stats__inner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .stat__number {
+      font-family: var(--font-headline);
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--color-primary);
+      letter-spacing: -0.03em;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .stat__label {
+      font-family: var(--font-label);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-on-surface-variant);
+    }
+
+    .stats__divider {
+      width: 1px;
+      background: rgba(70,72,74,0.4);
+      align-self: stretch;
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .stats__inner {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem 1rem;
+      }
+      .stats__divider { display: none; }
+    }
+
+    /* =============================================
+       SECTION SHARED
+    ============================================= */
+    .section { padding: 6rem 0; }
+    .section--alt { background: var(--color-surface-container-low); }
+
+    .section__eyebrow {
+      font-family: var(--font-label);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .section__title {
+      font-family: var(--font-headline);
+      font-size: clamp(2.2rem, 5vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      color: var(--color-on-background);
+      margin-bottom: 1.5rem;
+    }
+
+    .section__title .dim {
+      color: var(--color-surface-container-highest);
+      -webkit-text-stroke: 1px rgba(70,72,74,0.8);
+    }
+
+    .section__desc {
+      font-size: 1.05rem;
+      color: var(--color-on-surface-variant);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* =============================================
+       MISSION — FEATURE BLOCKS
+    ============================================= */
+    .mission__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .mission__grid { grid-template-columns: 1fr; }
+    }
+
+    .mission__card {
+      background: var(--color-surface-container-high);
+      border: 1px solid rgba(70,72,74,0.25);
+      border-radius: 1.25rem;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .mission__card:hover {
+      border-color: rgba(129,236,255,0.3);
+      transform: translateY(-4px);
+    }
+
+    .mission__card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--color-primary), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .mission__card:hover::before { opacity: 1; }
+
+    .mission__card--wide {
+      grid-column: 1 / -1;
+    }
+
+    .mission__icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    .mission__icon--cyan   { background: rgba(129,236,255,0.12); color: var(--color-primary); }
+    .mission__icon--pink   { background: rgba(255,81,250,0.12);  color: var(--color-secondary); }
+    .mission__icon--orange { background: rgba(255,131,63,0.12);  color: var(--color-tertiary); }
+    .mission__icon--green  { background: rgba(40,200,130,0.12);  color: #28c882; }
+
+    .mission__card-title {
+      font-family: var(--font-headline);
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--color-on-surface);
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+
+    .mission__card-desc {
+      font-size: 0.9rem;
+      color: var(--color-on-surface-variant);
+      line-height: 1.7;
+    }
+
+    /* Wide card layout */
+    .mission__card--wide .mission__card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    @media (max-width: 640px) {
+      .mission__card--wide .mission__card-inner {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .mission__quote {
+      font-family: var(--font-headline);
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-weight: 600;
+      color: var(--color-on-surface);
+      line-height: 1.3;
+      font-style: italic;
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 3px solid var(--color-primary);
+    }
+
+    /* =============================================
+       TEAM
+    ============================================= */
+    .team__header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .team__header { grid-template-columns: 1fr; gap: 1.5rem; }
+    }
+
+    .team__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 1024px) {
+      .team__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 480px) {
+      .team__grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+    }
+
+    .team__card {
+      position: relative;
+      border-radius: 1rem;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: default;
+    }
+
+    .team__card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .team__card:hover .team__card-img { transform: scale(1.08); }
+
+    .team__card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 50%, transparent 80%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+    }
+
+    .team__card-role {
+      font-family: var(--font-label);
+      font-size: 0.6rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 0.4rem;
+      transition: color 0.3s;
+    }
+    .team__card:nth-child(1) .team__card-role { color: var(--color-primary); }
+    .team__card:nth-child(2) .team__card-role { color: var(--color-secondary); }
+    .team__card:nth-child(3) .team__card-role { color: var(--color-tertiary); }
+    .team__card:nth-child(4) .team__card-role { color: #28c882; }
+
+    .team__card-name {
+      font-family: var(--font-headline);
+      font-size: clamp(1rem, 2vw, 1.35rem);
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* Glow border on hover */
+    .team__card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 1rem;
+      border: 1px solid transparent;
+      transition: border-color 0.3s;
+      pointer-events: none;
+    }
+    .team__card:nth-child(1):hover::after { border-color: rgba(129,236,255,0.5); }
+    .team__card:nth-child(2):hover::after { border-color: rgba(255,81,250,0.5); }
+    .team__card:nth-child(3):hover::after { border-color: rgba(255,131,63,0.5); }
+    .team__card:nth-child(4):hover::after { border-color: rgba(40,200,130,0.5); }
+
+    /* =============================================
+       VALUES / PILLARS
+    ============================================= */
+    .pillars__list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 4rem;
+      background: rgba(70,72,74,0.2);
+      border-radius: 1.5rem;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      .pillars__list { grid-template-columns: 1fr; }
+    }
+
+    .pillar {
+      background: var(--color-surface-container);
+      padding: 3rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+    .pillar:hover { background: var(--color-surface-container-high); }
+
+    .pillar__number {
+      font-family: var(--font-headline);
+      font-size: 5rem;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: rgba(70,72,74,0.5);
+      position: absolute;
+      top: 1rem; right: 1.5rem;
+      transition: color 0.3s;
+    }
+    .pillar:hover .pillar__number { color: rgba(129,236,255,0.15); }
+
+    .pillar__icon {
+      font-size: 1.75rem;
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .pillar__title {
+      font-family: var(--font-headline);
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--color-on-surface);
+      margin-bottom: 0.75rem;
+    }
+
+    .pillar__desc {
+      font-size: 0.85rem;
+      color: var(--color-on-surface-variant);
+      line-height: 1.7;
+    }
+
+    /* =============================================
+       TIMELINE
+    ============================================= */
+    .timeline {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-top: 4rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 120px;
+      top: 0; bottom: 0;
+      width: 1px;
+      background: linear-gradient(
+        to bottom,
+        transparent,
+        rgba(70,72,74,0.5) 5%,
+        rgba(70,72,74,0.5) 95%,
+        transparent
+      );
+    }
+
+    .timeline__item {
+      display: flex;
+      gap: 3rem;
+      padding: 2.5rem 0;
+      position: relative;
+    }
+    .timeline__item + .timeline__item {
+      border-top: 1px solid rgba(70,72,74,0.15);
+    }
+
+    .timeline__year {
+      font-family: var(--font-headline);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-on-surface-variant);
+      min-width: 90px;
+      text-align: right;
+      transition: color 0.3s;
+      line-height: 1.2;
+    }
+    .timeline__item:hover .timeline__year { color: var(--color-primary); }
+
+    /* dot */
+    .timeline__dot {
+      position: absolute;
+      left: 112px;
+      top: 2.8rem;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: var(--color-surface-container);
+      border: 2px solid rgba(70,72,74,0.5);
+      transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+      z-index: 1;
+    }
+    .timeline__item:hover .timeline__dot {
+      background: var(--color-primary);
+      border-color: var(--color-primary);
+      box-shadow: 0 0 12px rgba(129,236,255,0.6);
+    }
+
+    .timeline__body { padding-left: 1rem; }
+
+    .timeline__label {
+      font-family: var(--font-label);
+      font-size: 0.63rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .timeline__title {
+      font-family: var(--font-headline);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--color-on-surface);
+      margin-bottom: 0.6rem;
+    }
+
+    .timeline__desc {
+      font-size: 0.88rem;
+      color: var(--color-on-surface-variant);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 640px) {
+      .timeline::before { left: 40px; }
+      .timeline__dot    { left: 32px; }
+      .timeline__item   { gap: 1.5rem; }
+      .timeline__year   { min-width: 0; font-size: 1.1rem; }
+    }
+
+    /* =============================================
+       CONTACT CTA
+    ============================================= */
+    .cta {
+      background: var(--color-surface-container-low);
+      padding: 6rem 0;
+    }
+
+    .cta__inner {
+      background: linear-gradient(135deg,
+        var(--color-surface-container-high) 0%,
+        rgba(0,229,255,0.05) 100%);
+      border: 1px solid rgba(129,236,255,0.15);
+      border-radius: 2rem;
+      padding: 4rem;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .cta__inner {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 2.5rem 2rem;
+      }
+    }
+
+    .cta__glow {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,229,255,0.12), transparent 70%);
+      top: -100px; right: -100px;
+      pointer-events: none;
+    }
+
+    .cta__title {
+      font-family: var(--font-headline);
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 0.95;
+      color: var(--color-on-background);
+      margin-bottom: 1.25rem;
+    }
+
+    .cta__desc {
+      font-size: 1rem;
+      color: var(--color-on-surface-variant);
+      line-height: 1.7;
+    }
+
+    .cta__form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta__form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 500px) {
+      .cta__form-row { grid-template-columns: 1fr; }
+    }
+
+    .input {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(70,72,74,0.5);
+      border-radius: 0.75rem;
+      padding: 0.9rem 1.25rem;
+      font-family: var(--font-label);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--color-on-surface);
+      outline: none;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .input::placeholder { color: rgba(170,171,173,0.4); }
+    .input:focus {
+      border-color: rgba(129,236,255,0.5);
+      box-shadow: 0 0 0 3px rgba(129,236,255,0.08);
+    }
+
+    textarea.input { resize: vertical; min-height: 110px; }
+
+    .cta__submit {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      background: var(--color-secondary);
+      color: var(--color-on-secondary);
+      font-family: var(--font-label);
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 1.1rem 2rem;
+      border-radius: 0.75rem;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+    .cta__submit:hover {
+      opacity: 0.9;
+      box-shadow: 0 0 30px rgba(255,81,250,0.35);
+    }
+    .cta__submit:active { transform: scale(0.98); }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: var(--color-surface-container-low);
+      border-top: 1px solid rgba(70,72,74,0.2);
+      padding: 3rem 0;
+    }
+
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    @media (max-width: 640px) {
+      .footer__inner { grid-template-columns: 1fr; text-align: center; }
+    }
+
+    .footer__logo {
+      font-family: var(--font-headline);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--color-on-surface);
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+
+    .footer__copy {
+      font-size: 0.78rem;
+      color: rgba(238,238,240,0.4);
+      letter-spacing: 0.02em;
+    }
+
+    .footer__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: flex-end;
+    }
+
+    @media (max-width: 640px) {
+      .footer__links { justify-content: center; }
+    }
+
+    .footer__links a {
+      font-family: var(--font-label);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(238,238,240,0.5);
+      transition: color 0.25s;
+    }
+    .footer__links a:hover { color: var(--color-secondary); }
+
+    /* =============================================
+       SCROLL ANIMATIONS
+    ============================================= */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    [data-reveal].visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    [data-reveal-delay="1"] { transition-delay: 0.1s; }
+    [data-reveal-delay="2"] { transition-delay: 0.2s; }
+    [data-reveal-delay="3"] { transition-delay: 0.3s; }
+    [data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+    /* =============================================
+       COUNT-UP ANIMATION
+    ============================================= */
+    .count-up { display: inline; }
+
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVIGATION
+  ============================================= -->
+  <nav class="nav" id="main-nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">NEON EDITORIAL</a>
+
+      <ul class="nav__groups" role="list">
+        <!-- Main -->
+        <li class="nav__group">
+          <button class="nav__group-btn active-dot" style="color:var(--color-primary)">
+            Main <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span>
+          </button>
+          <div class="nav__dropdown">
+            <a href="index.html">Home</a>
+            <a href="about.html" class="dd-active">About</a>
+          </div>
+        </li>
+        <!-- Content -->
+        <li class="nav__group">
+          <button class="nav__group-btn">
+            Content <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span>
+          </button>
+          <div class="nav__dropdown">
+            <a href="#">News</a>
+            <a href="#">Events</a>
+          </div>
+        </li>
+        <!-- Community -->
+        <li class="nav__group">
+          <button class="nav__group-btn">
+            Community <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span>
+          </button>
+          <div class="nav__dropdown" style="min-width:210px">
+            <a href="#">Cosplay Gallery</a>
+            <a href="#">Spotlight</a>
+          </div>
+        </li>
+        <!-- Interaction -->
+        <li class="nav__group">
+          <button class="nav__group-btn">
+            Interaction <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span>
+          </button>
+          <div class="nav__dropdown">
+            <a href="#">Reviews</a>
+            <a href="#contact">Contact</a>
+          </div>
+        </li>
+      </ul>
+
+      <div class="nav__actions">
+        <span id="welcome-banner">Welcome, Guest</span>
+        
+        <button id="theme-toggle" class="nav__btn" aria-label="Toggle theme">
+          <span class="material-symbols-outlined" id="theme-icon">light_mode</span>
+        </button>
+
+        <button id="user-toggle" class="nav__btn" aria-label="User settings">
+          <span class="material-symbols-outlined">account_circle</span>
+        </button>
+
+        <button class="nav__search" aria-label="Search">
+          <span class="material-symbols-outlined">search</span>
+        </button>
+      </div>
+
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- User Settings Panel -->
+  <div class="settings-panel" id="settings-panel">
+    <h3>User Identity</h3>
+    <p style="font-size: 0.75rem; color: var(--color-on-surface-variant); margin-bottom: 1rem;">Set your name for a personalized experience.</p>
+    <input type="text" id="user-name-input" class="settings-input" placeholder="Your Name" maxlength="20">
+    <button id="save-settings" class="settings-save">Save Identity</button>
+  </div>
+
+  <!-- Mobile drawer -->
+  <div class="nav__drawer" id="nav-drawer">
+    <a href="index.html">Home</a>
+    <a href="about.html" style="color:var(--color-primary)">About</a>
+    <a href="#">News</a>
+    <a href="#">Events</a>
+    <a href="#">Cosplay Gallery</a>
+    <a href="#">Spotlight</a>
+    <a href="#">Reviews</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <main>
+    <!-- =============================================
+         HERO
+    ============================================= -->
+    <section class="hero" id="hero">
+      <div class="hero__image"></div>
+      <div class="hero__mask"></div>
+      <div class="hero__bg"></div>
+      <div class="hero__grid"></div>
+      <div class="hero__orb hero__orb--1"></div>
+      <div class="hero__orb hero__orb--2"></div>
+      <div class="hero__orb hero__orb--3"></div>
+
+      <div class="container hero__content">
+        <span class="hero__eyebrow">About Us</span>
+        <h1 class="hero__title">
+          We Are The
+          <span class="accent">Electric</span>
+          Curators.
+        </h1>
+        <p class="hero__sub">
+          Born from the kinetic pulse of animation and the craftsmanship of global cosplay,
+          NEON EDITORIAL is more than a news outlet. We are a digital stage for the extraordinary.
+        </p>
+        <div class="hero__cta">
+          <a href="#mission" class="btn btn--primary" id="hero-cta-mission">
+            Our Mission
+            <span class="material-symbols-outlined" style="font-size:1rem">arrow_downward</span>
+          </a>
+          <a href="#team" class="btn btn--outline" id="hero-cta-team">Meet The Team</a>
+        </div>
+        <div class="hero__scroll" aria-hidden="true">
+          <span class="hero__scroll-line"></span>
+          Scroll to explore
+        </div>
+      </div>
+
+      <!-- Manifesto card (hides on small screens) -->
+      <aside class="hero__manifesto container" aria-label="Manifesto">
+        <div class="manifesto__dots">
+          <span></span><span></span><span></span>
+        </div>
+        <p class="manifesto__tag">MANIFESTO_v2.04</p>
+        <p class="manifesto__title">To Amplify the Voices of Creators.</p>
+        <p class="manifesto__body">
+          To amplify the voices of creators who treat every frame as a
+          masterpiece and every cosplay as a second skin.
+        </p>
+        <ul class="manifesto__items" role="list">
+          <li>Disrupting the noise</li>
+          <li>Elevating the craft</li>
+          <li>Building a third skin</li>
+        </ul>
+      </aside>
+    </section>
+
+    <!-- =============================================
+         STATS BAR
+    ============================================= -->
+    <section class="stats" aria-label="Key statistics">
+      <div class="container">
+        <div class="stats__inner">
+          <div class="stat" data-reveal>
+            <div class="stat__number">
+              <span class="count-up" data-target="50">0</span>K+
+            </div>
+            <div class="stat__label">Active Readers</div>
+          </div>
+          <div class="stat" data-reveal data-reveal-delay="1">
+            <div class="stat__number">
+              <span class="count-up" data-target="240">0</span>+
+            </div>
+            <div class="stat__label">Articles Published</div>
+          </div>
+          <div class="stat" data-reveal data-reveal-delay="2">
+            <div class="stat__number">
+              <span class="count-up" data-target="18">0</span>
+            </div>
+            <div class="stat__label">Countries Reached</div>
+          </div>
+          <div class="stat" data-reveal data-reveal-delay="3">
+            <div class="stat__number">
+              <span class="count-up" data-target="4">0</span>
+            </div>
+            <div class="stat__label">Years Running</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         MISSION
+    ============================================= -->
+    <section class="section" id="mission" aria-labelledby="mission-title">
+      <div class="container">
+        <span class="section__eyebrow" data-reveal>Our Purpose</span>
+        <h2 class="section__title" id="mission-title" data-reveal data-reveal-delay="1">
+          THE MISSION
+          <span class="dim"> DECODED.</span>
+        </h2>
+
+        <div class="mission__grid">
+          <!-- Wide card: quote -->
+          <div class="mission__card mission__card--wide" data-reveal>
+            <div class="mission__card-inner">
+              <div>
+                <blockquote class="mission__quote">
+                  "Every frame is a masterpiece. Every costume a second skin. We exist to tell that story."
+                </blockquote>
+              </div>
+              <div>
+                <p class="mission__card-desc">
+                  We exist at the intersection of artistry and fandom, documenting the explosion of anime
+                  culture and cosplay craftsmanship as they reshape entertainment worldwide. NEON EDITORIAL
+                  was founded on a single conviction: niche cultures deserve world-class journalism.
+                </p>
+                <br/>
+                <p class="mission__card-desc">
+                  Our editors are not observers — we are participants, creators, and enthusiasts who bring
+                  authentic insider perspectives to every story we tell.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 1 -->
+          <div class="mission__card" data-reveal>
+            <div class="mission__icon mission__icon--cyan">
+              <span class="material-symbols-outlined">bolt</span>
+            </div>
+            <h3 class="mission__card-title">Lightning Fast</h3>
+            <p class="mission__card-desc">
+              Breaking news at the speed of light. If it's trending in Tokyo, it's on your screen in seconds —
+              backed by verified sources and expert analysis.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="mission__card" data-reveal data-reveal-delay="1">
+            <div class="mission__icon mission__icon--pink">
+              <span class="material-symbols-outlined">center_focus_strong</span>
+            </div>
+            <h3 class="mission__card-title">Hyper Focus</h3>
+            <p class="mission__card-desc">
+              Deep dives into cosplay techniques, from 3D printing props to cinematic photography tutorials.
+              We go beyond the surface so you never have to.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="mission__card" data-reveal data-reveal-delay="2">
+            <div class="mission__icon mission__icon--orange">
+              <span class="material-symbols-outlined">groups</span>
+            </div>
+            <h3 class="mission__card-title">Global Tribe</h3>
+            <p class="mission__card-desc">
+              Uniting a community of 24h+ enthusiasts through exclusive events, interactive galleries,
+              and a Discord where the conversation never stops.
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="mission__card" data-reveal data-reveal-delay="3">
+            <div class="mission__icon mission__icon--green">
+              <span class="material-symbols-outlined">verified</span>
+            </div>
+            <h3 class="mission__card-title">Authentic Voice</h3>
+            <p class="mission__card-desc">
+              No clickbait, no filler. Every word is crafted by insiders who live and breathe this culture.
+              Honest, informed, and uncompromisingly passionate.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         VALUES / PILLARS
+    ============================================= -->
+    <section class="section section--alt" id="values" aria-labelledby="values-title">
+      <div class="container">
+        <span class="section__eyebrow" data-reveal>What Drives Us</span>
+        <h2 class="section__title" id="values-title" data-reveal data-reveal-delay="1">
+          CORE<br/><span class="dim">PILLARS.</span>
+        </h2>
+
+        <div class="pillars__list" role="list" data-reveal data-reveal-delay="2">
+          <div class="pillar" role="listitem">
+            <span class="pillar__number" aria-hidden="true">01</span>
+            <span class="pillar__icon" aria-hidden="true">⚡</span>
+            <h3 class="pillar__title">Relentless Curiosity</h3>
+            <p class="pillar__desc">
+              We ask the questions others don't think to ask. From the brushstrokes on a cosplay armor piece to
+              the frame-by-frame decisions of a studio director.
+            </p>
+          </div>
+          <div class="pillar" role="listitem">
+            <span class="pillar__number" aria-hidden="true">02</span>
+            <span class="pillar__icon" aria-hidden="true">🎨</span>
+            <h3 class="pillar__title">Craft-First Mindset</h3>
+            <p class="pillar__desc">
+              Art quality is non-negotiable. Every photo shoot, design element, and editorial layout is
+              treated as its own creative work.
+            </p>
+          </div>
+          <div class="pillar" role="listitem">
+            <span class="pillar__number" aria-hidden="true">03</span>
+            <span class="pillar__icon" aria-hidden="true">🌐</span>
+            <h3 class="pillar__title">Community at the Core</h3>
+            <p class="pillar__desc">
+              Our readers are contributors, collaborators, and critics. We grow because they push us.
+              Feedback shapes every editorial decision we make.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         TEAM
+    ============================================= -->
+    <section class="section" id="team" aria-labelledby="team-title">
+      <div class="container">
+        <div class="team__header">
+          <div>
+            <span class="section__eyebrow" data-reveal>The People</span>
+            <h2 class="section__title" id="team-title" data-reveal data-reveal-delay="1">
+              MEET THE<br/><span class="dim">ARCHITECTS.</span>
+            </h2>
+          </div>
+          <p class="section__desc" data-reveal data-reveal-delay="2">
+            A collective of journalists, professional cosplayers, and motion designers redefining
+            the anime media landscape — one frame at a time.
+          </p>
+        </div>
+
+        <div class="team__grid">
+
+          <!-- Member 1 -->
+          <article class="team__card" data-reveal>
+            <img
+              class="team__card-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkNg5BQPXU2mGaIgk_oNEl1V_ap5Xw-8ilv6ado7tBW858jXZTRfSIUQaEP-fRRBtYyL-aKtDDb97lDghHHBVP9aMaDGP6Tn7NKhohmMCOB-hWQEngqOmNzWtcl0L2a4A9WWifOSu8g5Pyzoao1aSqhm8vL3nUyTmCCnu5OtAvqCoBuBqDoW4-Uqh-29ClEolNKMS1JTpF7IvBLNSV7lQwuW2aIYQp8juIF7Sw_JKPkzjB4SN7i1G3v4EG9XNnyfwww5GzKhpTsrNy"
+              alt="Kira Vance, Editor-in-Chief"
+              referrerpolicy="no-referrer"
+            />
+            <div class="team__card-overlay">
+              <p class="team__card-role">Member 1 - Group Leader</p>
+              <h3 class="team__card-name">Chiam Chee Ho</h3>
+            </div>
+          </article>
+
+          <!-- Member 2 -->
+          <article class="team__card" data-reveal data-reveal-delay="1">
+            <img
+              class="team__card-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBx-5MF2G8bBWFzElmng0VIWohCUQ-LsVL8SUHPu3LFDTB8TyU26fMk0XMGwne7BgbNElM8qT3z3fjVZx2_-vpssGfVVJs7JkUjLkq7HQM864bi4xXITEdCRsHuXRFA507ckks6oDSGDBkiDBeE0Pd4BpfznSGBGsh3K8Ua4VrmMmz-KC-4d7jy2Hj_TG5bEwG0GRTkxsMTl-tUyknDCw09_FyCx8IU3M0nb-srqTS4CUzitX3EoazUVqDyUOwJtfKqpQDpbcFZzwnT"
+              alt="Ren Saito, Lead Photographer"
+              referrerpolicy="no-referrer"
+            />
+            <div class="team__card-overlay">
+              <p class="team__card-role">Member 2</p>
+              <h3 class="team__card-name">Tan Jian Wei</h3>
+            </div>
+          </article>
+
+          <!-- Member 3 -->
+          <article class="team__card" data-reveal data-reveal-delay="2">
+            <img
+              class="team__card-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs1tT9VUmgHSBdNHNMeV76Q1-oiD1GBe0EwfIG31Vj_L0ukTVa5rCkihYyB4SpvPVp5f6QNojiwrxG_etVKlnfR3xjDd0nfyTPSznVPeQ6WAOTAQRLL5D5ScPxAz4_eldA-Z2E0AWO2JCkpfAqrx2B0fPjh9oA4vgah-OYfHxvG76oASQAUWgoatZD-37kRJHMek2UJf_T23RMVXYc5sBlO-_jMWq-72vJgCq-Tl44F-6SCSLOYVVYaySOODshH797U5w31uF1emjn"
+              alt="Elena Moss, Cosplay Curator"
+              referrerpolicy="no-referrer"
+            />
+            <div class="team__card-overlay">
+              <p class="team__card-role">Member 3</p>
+              <h3 class="team__card-name">Mar Hao Yang</h3>
+            </div>
+          </article>
+
+          <!-- Member 4 -->
+          <article class="team__card" data-reveal data-reveal-delay="3">
+            <img
+              class="team__card-img"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdb-u55cmLgYD2n-5luHSQuQmS-9w3QfFXXrw8Y06MhWdM7XiBGbzLUmxu-WD6oAZQ5n_OOcUb4pLLrQugNvQWpzdN-rF_c3tj1u-kn-H3TdkY8LukZMTvqKY1DsrtXJ20wbwX_5q_WOui0vdzcA8-WdPtC27Ed5LoDTqG4HONTrukO_v0plDt9g7Unh8go4pasD2QiaGyfyc_53IWIdM95tdLuSIdfEa_-HL4kTUHH_QCgX_FkkKfkC5S7Vlmtq8cu3Xa_PCdpnpR"
+              alt="Marcus Chen, VFX Journalist"
+              referrerpolicy="no-referrer"
+            />
+            <div class="team__card-overlay">
+              <p class="team__card-role">Member 4</p>
+              <h3 class="team__card-name">Ang Xuan Wen</h3>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         TIMELINE
+    ============================================= -->
+    <section class="section section--alt" id="story" aria-labelledby="story-title">
+      <div class="container">
+        <span class="section__eyebrow" data-reveal>How We Got Here</span>
+        <h2 class="section__title" id="story-title" data-reveal data-reveal-delay="1">
+          OUR<br/><span class="dim">STORY.</span>
+        </h2>
+
+        <div class="timeline" role="list">
+
+          <div class="timeline__item" data-reveal role="listitem">
+            <div class="timeline__year" aria-hidden="true">2020</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__body">
+              <span class="timeline__label">Origin</span>
+              <h3 class="timeline__title">The Spark</h3>
+              <p class="timeline__desc">
+                Four freelancers — a journalist, a cosplayer, a photographer, and a developer — shared a blog post
+                that unexpectedly reached 100,000 readers overnight. The Electric Curators were born.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline__item" data-reveal data-reveal-delay="1" role="listitem">
+            <div class="timeline__year" aria-hidden="true">2021</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__body">
+              <span class="timeline__label">Launch</span>
+              <h3 class="timeline__title">Neon Editorial Goes Live</h3>
+              <p class="timeline__desc">
+                Official launch of the platform with a full editorial team, partnering with Anime Expo and
+                Tokyo International Anime Fair for exclusive media access.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline__item" data-reveal data-reveal-delay="2" role="listitem">
+            <div class="timeline__year" aria-hidden="true">2022</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__body">
+              <span class="timeline__label">Expansion</span>
+              <h3 class="timeline__title">Global Reach</h3>
+              <p class="timeline__desc">
+                Built community hubs in Tokyo, Seoul, and Los Angeles. Launched the Neon Podcast with
+                5M+ streams in its first season and partnered with 40+ independent studios.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline__item" data-reveal data-reveal-delay="3" role="listitem">
+            <div class="timeline__year" aria-hidden="true">2024</div>
+            <div class="timeline__dot" aria-hidden="true"></div>
+            <div class="timeline__body">
+              <span class="timeline__label">Now</span>
+              <h3 class="timeline__title">The Electric Future</h3>
+              <p class="timeline__desc">
+                50,000+ subscribers. 18 countries. Still independent. Still obsessed. We're just getting started —
+                the next chapter of niche media is ours to write.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         CONTACT CTA
+    ============================================= -->
+    <section class="cta" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="cta__inner">
+          <div class="cta__glow" aria-hidden="true"></div>
+
+          <div data-reveal>
+            <span class="section__eyebrow">Signal Us</span>
+            <h2 class="cta__title" id="contact-title">
+              Have a<br/>Story? A<br/>Collab?
+            </h2>
+            <p class="cta__desc">
+              Our frequencies are open. Whether you're a creator, studio, or just a huge fan
+              with something to say — we want to hear it.
+            </p>
+            <br/>
+            <p class="cta__desc" style="font-size:0.85rem;">
+              <span class="material-symbols-outlined" style="font-size:1rem;color:var(--color-primary);vertical-align:middle;">mail</span>
+              &nbsp;<a href="mailto:hello@neon-editorial.com" style="color:var(--color-primary)">hello@neon-editorial.com</a>
+            </p>
+          </div>
+
+          <form class="cta__form" id="contact-form" novalidate data-reveal data-reveal-delay="1">
+            <div class="cta__form-row">
+              <input
+                class="input"
+                type="text"
+                id="contact-name"
+                name="name"
+                placeholder="Your Name"
+                required
+                autocomplete="name"
+              />
+              <input
+                class="input"
+                type="email"
+                id="contact-email"
+                name="email"
+                placeholder="your@email.com"
+                required
+                autocomplete="email"
+              />
+            </div>
+            <textarea
+              class="input"
+              id="contact-message"
+              name="message"
+              placeholder="Your message here..."
+              required
+              rows="5"
+            ></textarea>
+            <button type="submit" class="cta__submit" id="contact-submit">
+              <span class="material-symbols-outlined" style="font-size:1rem">send</span>
+              Initialize Sync
+            </button>
+            <p id="form-feedback" style="font-size:0.78rem;color:var(--color-primary);min-height:1.2em;text-align:center;" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer class="footer" id="page-footer">
+    <div class="container footer__inner">
+      <div>
+        <div class="footer__logo">NEON EDITORIAL.</div>
+        <div class="footer__copy">© 2024 Neon Editorial. The Electric Curator.</div>
+      </div>
+      <nav class="footer__links" aria-label="Footer navigation">
+        <a href="#" id="footer-terms">Terms</a>
+        <a href="#" id="footer-privacy">Privacy</a>
+        <a href="#" id="footer-newsletter">Newsletter</a>
+        <a href="#contact" id="footer-contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    /* -----------------------------------------------
+       NAV — scroll behavior & hamburger
+    ----------------------------------------------- */
+    const nav       = document.getElementById('main-nav');
+    const hamburger = document.getElementById('hamburger');
+    const drawer    = document.getElementById('nav-drawer');
+
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      drawer.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close mobile drawer when a link is clicked
+    drawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        drawer.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    /* -----------------------------------------------
+       SCROLL REVEAL
+    ----------------------------------------------- */
+    const reveals = document.querySelectorAll('[data-reveal]');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    /* -----------------------------------------------
+       COUNT-UP ANIMATION
+    ----------------------------------------------- */
+    const counters = document.querySelectorAll('.count-up');
+    let countersStarted = false;
+
+    function startCounters() {
+      if (countersStarted) return;
+      countersStarted = true;
+
+      counters.forEach(counter => {
+        const target  = parseInt(counter.dataset.target, 10);
+        const duration = 1800;
+        const step     = 16;
+        const increment = target / (duration / step);
+        let current = 0;
+
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target;
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current);
+          }
+        }, step);
+      });
+    }
+
+    const statsSection = document.querySelector('.stats');
+    const statsObserver = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) startCounters();
+    }, { threshold: 0.3 });
+    if (statsSection) statsObserver.observe(statsSection);
+
+    /* -----------------------------------------------
+       CONTACT FORM — simple validation & feedback
+    ----------------------------------------------- */
+    const form     = document.getElementById('contact-form');
+    const feedback = document.getElementById('form-feedback');
+
+    function showFeedback(msg, color) {
+      feedback.textContent = msg;
+      feedback.style.color = color;
+      setTimeout(() => { feedback.textContent = ''; }, 5000);
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name    = document.getElementById('contact-name').value.trim();
+      const email   = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name)               return showFeedback('Please enter your name.', '#ff716c');
+      if (!emailRe.test(email))return showFeedback('Please enter a valid email address.', '#ff716c');
+      if (!message)            return showFeedback('Please enter a message.', '#ff716c');
+
+      const btn = document.getElementById('contact-submit');
+      btn.textContent = 'Transmitting…';
+      btn.disabled = true;
+
+      // Simulate async submission
+      setTimeout(() => {
+        form.reset();
+        btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:1rem">check_circle</span> Signal Received!';
+        showFeedback('Message sent! We\'ll be in touch soon.', '#28c882');
+        setTimeout(() => {
+          btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:1rem">send</span> Initialize Sync';
+          btn.disabled = false;
+        }, 3000);
+      }, 1200);
+    });
+
+    /* -----------------------------------------------
+       SMOOTH ANCHOR SCROLLING
+    ----------------------------------------------- */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const target = document.querySelector(anchor.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        const offset = nav.offsetHeight + 16;
+        const top    = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+    });
+    /* -----------------------------------------------
+       USER PREFERENCES (LocalStorage)
+       Note: Using localStorage instead of cookies for 
+       better support in local file environments.
+    ----------------------------------------------- */
+    const setPreference = (name, value) => {
+      localStorage.setItem(name, value);
+    };
+
+    const getPreference = (name) => {
+      return localStorage.getItem(name) || "";
+    };
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon   = document.getElementById('theme-icon');
+    const userToggle  = document.getElementById('user-toggle');
+    const settingsPanel = document.getElementById('settings-panel');
+    const nameInput   = document.getElementById('user-name-input');
+    const saveBtn     = document.getElementById('save-settings');
+    const welcomeBanner = document.getElementById('welcome-banner');
+
+    const updateWelcomeDisplay = (name) => {
+      if (name) {
+        welcomeBanner.textContent = `Welcome, ${name}`;
+        welcomeBanner.style.display = 'block';
+      } else {
+        welcomeBanner.style.display = 'none';
+      }
+    };
+
+    const toggleTheme = () => {
+      const isLight = document.documentElement.classList.toggle('light-mode');
+      themeIcon.textContent = isLight ? 'dark_mode' : 'light_mode';
+      setPreference('user_theme', isLight ? 'light' : 'dark');
+    };
+
+    // Initialize Preferences
+    const savedTheme = getPreference('user_theme');
+    const savedName  = getPreference('user_name');
+
+    if (savedTheme === 'light') {
+      document.documentElement.classList.add('light-mode');
+      themeIcon.textContent = 'dark_mode';
+    }
+
+    if (savedName) {
+      updateWelcomeDisplay(savedName);
+      nameInput.value = savedName;
+    }
+
+    // Listeners
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    userToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      settingsPanel.classList.toggle('open');
+    });
+
+    saveBtn.addEventListener('click', () => {
+      const name = nameInput.value.trim();
+      setPreference('user_name', name);
+      updateWelcomeDisplay(name);
+      settingsPanel.classList.remove('open');
+    });
+
+    // Close panel on click outside
+    document.addEventListener('click', (e) => {
+      if (!settingsPanel.contains(e.target) && e.target !== userToggle && !userToggle.contains(e.target)) {
+        settingsPanel.classList.remove('open');
+      }
+    });
+
+  </script>
+</body>
+</html>

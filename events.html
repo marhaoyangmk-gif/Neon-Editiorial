@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Neon Editorial — Anime & Cosplay Events. Find upcoming conventions, screenings, and community gatherings worldwide." />
+  <title>Events | Neon Editorial</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <style>
+    /* =============================================
+       DESIGN TOKENS (identical to Member 1)
+    ============================================= */
+    :root {
+      --primary:              #81ecff;
+      --primary-dim:          #00d4ec;
+      --primary-container:    #00e3fd;
+      --on-primary:           #005762;
+      --secondary:            #ff51fa;
+      --secondary-dim:        #ff51fa;
+      --secondary-container:  #a900a9;
+      --on-secondary:         #400040;
+      --on-secondary-container: #fff5f9;
+      --tertiary:             #ff833f;
+      --tertiary-dim:         #ff7520;
+      --tertiary-fixed:       #ff955e;
+      --on-tertiary:          #481900;
+      --surface:                   #0c0e10;
+      --surface-bright:            #292c2f;
+      --surface-container-low:     #111416;
+      --surface-container:         #171a1c;
+      --surface-container-high:    #1d2022;
+      --surface-container-highest: #232629;
+      --on-surface:       #eeeef0;
+      --on-surface-variant: #aaabad;
+      --on-background:    #eeeef0;
+      --outline-variant:  #46484a;
+      --font-headline: 'Space Grotesk', sans-serif;
+      --font-body:     'Manrope', sans-serif;
+      --font-label:    'Plus Jakarta Sans', sans-serif;
+      --nav-h: 80px;
+    }
+    :root.light-mode {
+      --primary:           #00606f; --primary-dim: #004e5b; --primary-container: #81ecff; --on-primary: #ffffff;
+      --secondary:         #c218bb; --secondary-container: #ffdfef; --on-secondary: #ffffff;
+      --surface: #f8fafc; --surface-bright: #ffffff; --surface-container-low: #f1f5f9;
+      --surface-container: #e2e8f0; --surface-container-high: #d1d5db; --surface-container-highest: #94a3b8;
+      --on-surface: #0f172a; --on-surface-variant: #475569; --on-background: #0f172a; --outline-variant: #cbd5e1;
+    }
+    body { transition: background-color 0.35s ease, color 0.35s ease; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); background: var(--surface); color: var(--on-surface); overflow-x: hidden; line-height: 1.6; }
+    img { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; line-height: 1; }
+    .container { max-width: 1400px; margin-inline: auto; padding-inline: 2rem; }
+    @media (max-width: 480px) { .container { padding-inline: 1.25rem; } }
+
+    /* =============================================
+       NAV (identical to Member 1)
+    ============================================= */
+    .nav { position: fixed; top: 0; left: 0; right: 0; height: var(--nav-h); z-index: 1000; background: linear-gradient(to bottom, rgba(12,14,16,0.85), rgba(12,14,16,0)); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid transparent; transition: background 0.3s, border-color 0.3s; }
+    .nav.scrolled { background: rgba(12,14,16,0.97); border-color: rgba(70,72,74,0.3); }
+    .nav__inner { display: flex; align-items: center; justify-content: space-between; height: 100%; max-width: 1400px; margin-inline: auto; padding-inline: 2rem; }
+    .nav__logo { font-family: var(--font-headline); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.03em; color: var(--primary); }
+    .nav__groups { display: flex; align-items: center; gap: 1.5rem; list-style: none; }
+    .nav__group { position: relative; }
+    .nav__group-btn { display: flex; align-items: center; gap: 4px; font-family: var(--font-body); font-size: 0.88rem; color: rgba(238,238,240,0.8); padding: 1rem 0; transition: color 0.25s; }
+    .nav__group-btn:hover, .nav__group-btn.active { color: var(--primary); }
+    .nav__group-btn.active-dot::after { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--primary); box-shadow: 0 0 8px var(--primary); margin: 3px auto 0; }
+    .nav__dropdown { position: absolute; top: 100%; left: 0; min-width: 180px; background: var(--surface-container-high); border: 1px solid rgba(70,72,74,0.2); border-radius: 0.75rem; padding: 0.5rem 0; box-shadow: 0 20px 40px rgba(0,0,0,0.4); backdrop-filter: blur(16px); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity 0.25s, transform 0.25s; }
+    .nav__group:hover .nav__dropdown, .nav__group:focus-within .nav__dropdown { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .nav__dropdown a { display: block; padding: 0.75rem 1.5rem; font-size: 0.85rem; color: rgba(238,238,240,0.8); transition: color 0.2s, background 0.2s; }
+    .nav__dropdown a:hover { color: var(--primary); background: rgba(129,236,255,0.06); }
+    .nav__dropdown a.dd-active { color: var(--primary); background: rgba(129,236,255,0.05); font-weight: 700; }
+    .nav__actions { display: flex; align-items: center; gap: 1rem; }
+    .nav__btn { color: var(--on-surface); display: flex; align-items: center; padding: 0.5rem; border-radius: 50%; transition: background 0.2s, transform 0.2s; }
+    .nav__btn:hover { background: rgba(129,236,255,0.1); transform: scale(1.1); }
+    .nav__btn:active { transform: scale(0.95); }
+    #welcome-banner { display: none; font-family: var(--font-label); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--primary); margin-right: 1rem; }
+    .settings-panel { position: fixed; top: calc(var(--nav-h) + 12px); right: 2rem; width: 280px; background: var(--surface-container-high); border: 1px solid var(--outline-variant); border-radius: 1rem; padding: 1.5rem; box-shadow: 0 20px 40px rgba(0,0,0,0.5); z-index: 1100; opacity: 0; transform: translateY(-20px) scale(0.95); pointer-events: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); backdrop-filter: blur(20px); }
+    .settings-panel.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+    .settings-panel h3 { font-family: var(--font-headline); font-size: 1.1rem; margin-bottom: 1rem; color: var(--primary); }
+    .settings-input { width: 100%; background: var(--surface-container-low); border: 1px solid var(--outline-variant); border-radius: 0.5rem; padding: 0.75rem; color: var(--on-surface); font-family: var(--font-body); margin-bottom: 1.25rem; }
+    .settings-save { width: 100%; background: var(--primary); color: var(--on-primary); padding: 0.75rem; border-radius: 999px; font-weight: 700; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .nav__hamburger { display: none; flex-direction: column; gap: 5px; width: 28px; cursor: pointer; padding: 4px; }
+    .nav__hamburger span { display: block; height: 2px; background: var(--on-surface); border-radius: 2px; transition: transform 0.35s, opacity 0.25s, width 0.25s; }
+    .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav__drawer { position: fixed; top: var(--nav-h); left: 0; right: 0; background: rgba(12,14,16,0.97); backdrop-filter: blur(24px); border-bottom: 1px solid rgba(70,72,74,0.3); padding: 1.5rem 2rem 2rem; display: flex; flex-direction: column; gap: 0.25rem; transform: translateY(-110%); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); z-index: 999; }
+    .nav__drawer.open { transform: translateY(0); }
+    .nav__drawer a { font-family: var(--font-label); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(238,238,240,0.75); padding: 0.65rem 0; border-bottom: 1px solid rgba(70,72,74,0.2); transition: color 0.2s; }
+    .nav__drawer a:last-child { border-bottom: none; }
+    .nav__drawer a:hover { color: var(--primary); }
+    @media (max-width: 768px) { .nav__groups { display: none; } .nav__hamburger { display: flex; } }
+
+    /* =============================================
+       MOBILE RESPONSIVE — events.html
+    ============================================= */
+
+    /* Page hero */
+    @media (max-width: 480px) {
+      .page-hero { padding: calc(var(--nav-h) + 2rem) 0 3rem; }
+      .page-hero__title { font-size: 3.2rem; }
+      .page-hero__desc { font-size: 0.95rem; }
+    }
+
+    /* Stats strip */
+    @media (max-width: 480px) {
+      .stats-inner { gap: 1.5rem; }
+      .stat__num { font-size: 1.8rem; }
+    }
+
+    /* Featured event */
+    @media (max-width: 600px) {
+      .featured-event__body { padding: 1.5rem; }
+      .featured-event__title { font-size: 1.4rem; }
+      .featured-event__actions { flex-direction: column; }
+      .featured-event__actions .btn { justify-content: center; }
+    }
+
+    /* Events controls */
+    @media (max-width: 600px) {
+      .events-controls { flex-direction: column; align-items: flex-start; }
+      .view-toggle { margin-left: 0; }
+    }
+
+    /* Filter tabs scroll on tiny screens */
+    @media (max-width: 480px) {
+      .filter-tabs { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
+      .filter-tab { flex-shrink: 0; }
+    }
+
+    /* Calendar section layout */
+    @media (max-width: 900px) {
+      .calendar-section .container > div { grid-template-columns: 1fr !important; }
+      .hide-on-small { display: none !important; }
+      .calendar-wrap { max-width: 100%; }
+    }
+
+    /* Calendar padding on mobile */
+    @media (max-width: 480px) {
+      .calendar-wrap { padding: 1.25rem; }
+      .cal-day { font-size: 0.72rem; }
+    }
+
+    /* Modal — full screen on mobile */
+    @media (max-width: 600px) {
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal { border-radius: 1.25rem 1.25rem 0 0; max-height: 92vh; }
+      .modal__img { height: 180px; border-radius: 1.25rem 1.25rem 0 0; }
+      .modal__body { padding: 1.25rem; }
+      .modal__title { font-size: 1.2rem; }
+      .modal__info-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    /* Newsletter */
+    @media (max-width: 600px) {
+      .newsletter__inner { padding: 2.5rem 1.5rem; }
+      .newsletter__title { font-size: 1.6rem; }
+      .newsletter__form { flex-direction: column; }
+      .newsletter__input { min-width: unset; }
+      .newsletter__form .btn { justify-content: center; }
+    }
+
+    /* =============================================
+       SHARED UTILITIES
+    ============================================= */
+    .badge { display: inline-block; padding: 0.35rem 1rem; background: var(--tertiary); color: var(--on-tertiary); font-family: var(--font-label); font-size: 0.68rem; font-weight: 900; letter-spacing: 0.2em; text-transform: uppercase; border-radius: 999px; }
+    .section-title { font-family: var(--font-headline); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; color: var(--on-background); }
+    .section-sub { color: var(--primary); font-family: var(--font-label); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 0.4rem; }
+    .btn { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-label); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; padding: 1rem 2.5rem; border-radius: 999px; transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s; }
+    .btn:active { transform: scale(0.93); }
+    .btn--primary { background: var(--primary); color: var(--on-primary); }
+    .btn--primary:hover { box-shadow: 0 0 28px rgba(129,236,255,0.35); opacity: 0.9; }
+    .btn--outline { border: 1px solid rgba(129,236,255,0.3); color: var(--primary); }
+    .btn--outline:hover { background: rgba(129,236,255,0.07); border-color: rgba(129,236,255,0.6); }
+    [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+    [data-reveal].visible { opacity: 1; transform: translateY(0); }
+    [data-reveal-delay="1"] { transition-delay: 0.1s; }
+    [data-reveal-delay="2"] { transition-delay: 0.2s; }
+    [data-reveal-delay="3"] { transition-delay: 0.3s; }
+
+    /* =============================================
+       PAGE HERO
+    ============================================= */
+    .page-hero { padding: calc(var(--nav-h) + 4rem) 0 5rem; background: var(--surface-container-low); border-bottom: 1px solid rgba(70,72,74,0.15); }
+    .page-hero__eyebrow { font-family: var(--font-label); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--secondary); margin-bottom: 1.2rem; }
+    .page-hero__title { font-family: var(--font-headline); font-size: clamp(3rem, 7vw, 6rem); font-weight: 700; letter-spacing: -0.04em; line-height: 0.9; color: var(--on-background); margin-bottom: 1.5rem; }
+    .page-hero__title span { color: var(--primary); }
+    .page-hero__desc { font-size: 1.1rem; color: var(--on-surface-variant); max-width: 500px; }
+
+    /* =============================================
+       STATS STRIP
+    ============================================= */
+    .stats-strip { background: var(--surface-container); border-top: 1px solid rgba(70,72,74,0.12); border-bottom: 1px solid rgba(70,72,74,0.12); padding: 2rem 0; }
+    .stats-inner { display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; }
+    .stat { text-align: center; }
+    .stat__num { font-family: var(--font-headline); font-size: 2.2rem; font-weight: 700; color: var(--primary); line-height: 1; }
+    .stat__label { font-family: var(--font-label); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--on-surface-variant); margin-top: 0.3rem; }
+
+    /* =============================================
+       UPCOMING EVENTS — Featured Banner
+    ============================================= */
+    .featured-event {
+      margin: 4rem 0 2rem;
+      background: var(--surface-container-high);
+      border-radius: 1.25rem; overflow: hidden;
+      border: 1px solid rgba(129,236,255,0.15);
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 380px; cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .featured-event:hover { border-color: rgba(129,236,255,0.4); box-shadow: 0 24px 56px rgba(0,0,0,0.4); }
+    .featured-event__img { position: relative; overflow: hidden; min-height: 300px; }
+    .featured-event__img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s; }
+    .featured-event:hover .featured-event__img img { transform: scale(1.05); }
+    .featured-event__img-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(12,14,16,0.3), transparent); }
+    .featured-event__body { padding: 3rem; display: flex; flex-direction: column; justify-content: center; }
+    .featured-event__tag { font-family: var(--font-label); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; }
+    .featured-event__tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--secondary); display: inline-block; animation: blink 1.4s ease-in-out infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .featured-event__title { font-family: var(--font-headline); font-size: clamp(1.6rem, 3vw, 2.5rem); font-weight: 700; color: var(--on-background); margin-bottom: 1rem; line-height: 1.15; }
+    .featured-event__info { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .info-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--on-surface-variant); }
+    .info-row .material-symbols-outlined { font-size: 1rem; color: var(--primary); flex-shrink: 0; }
+    .featured-event__actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    @media (max-width: 768px) { .featured-event { grid-template-columns: 1fr; } .featured-event__img { min-height: 220px; } }
+
+    /* =============================================
+       EVENTS FILTER
+    ============================================= */
+    .events-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+    .events-controls .section-title { flex: 0 0 auto; }
+    .view-toggle { display: flex; background: var(--surface-container); border-radius: 999px; padding: 3px; margin-left: auto; gap: 2px; }
+    .view-btn { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--on-surface-variant); transition: all 0.2s; }
+    .view-btn.active { background: var(--primary); color: var(--on-primary); }
+    .view-btn:hover:not(.active) { color: var(--primary); }
+
+    .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .filter-tab {
+      font-family: var(--font-label); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.55rem 1.3rem; border-radius: 999px; border: 1px solid var(--outline-variant);
+      color: var(--on-surface-variant); transition: all 0.2s; cursor: pointer;
+    }
+    .filter-tab:hover { border-color: var(--primary); color: var(--primary); }
+    .filter-tab.active { background: var(--secondary); color: #fff; border-color: var(--secondary); }
+
+    /* =============================================
+       EVENTS GRID / LIST
+    ============================================= */
+    .events-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .events-grid.list-view { grid-template-columns: 1fr; }
+    @media (max-width: 1024px) { .events-grid:not(.list-view) { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px)  { .events-grid:not(.list-view) { grid-template-columns: 1fr; } }
+
+    .event-card {
+      background: var(--surface-container);
+      border-radius: 1rem; overflow: hidden;
+      border: 1px solid rgba(70,72,74,0.15);
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+      cursor: pointer; display: flex; flex-direction: column;
+    }
+    .event-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-color: rgba(255,81,250,0.25); }
+    .event-card__img-wrap { position: relative; height: 180px; overflow: hidden; flex-shrink: 0; }
+    .event-card__img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+    .event-card:hover .event-card__img-wrap img { transform: scale(1.07); }
+    .event-card__date-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      background: var(--surface-container-highest); border-radius: 0.6rem;
+      padding: 0.5rem 0.75rem; text-align: center; backdrop-filter: blur(8px);
+    }
+    .event-card__date-badge .day { font-family: var(--font-headline); font-size: 1.4rem; font-weight: 700; color: var(--primary); line-height: 1; }
+    .event-card__date-badge .mon { font-family: var(--font-label); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-surface-variant); }
+    .event-card__body { padding: 1.25rem; flex: 1; display: flex; flex-direction: column; }
+    .event-card__type { font-family: var(--font-label); font-size: 0.6rem; font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tertiary-fixed); margin-bottom: 0.5rem; }
+    .event-card__title { font-family: var(--font-headline); font-size: 1.05rem; font-weight: 700; color: var(--on-surface); margin-bottom: 0.75rem; line-height: 1.3; }
+    .event-card__loc { display: flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; color: var(--on-surface-variant); margin-bottom: 0.4rem; }
+    .event-card__loc .material-symbols-outlined { font-size: 0.9rem; }
+    .event-card__footer { margin-top: auto; padding-top: 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; border-top: 1px solid rgba(70,72,74,0.12); }
+    .event-card__attendees { font-size: 0.72rem; color: var(--on-surface-variant); display: flex; align-items: center; gap: 0.3rem; }
+    .event-card__attendees .material-symbols-outlined { font-size: 0.9rem; }
+    .rsvp-btn {
+      font-family: var(--font-label); font-size: 0.62rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.45rem 1.1rem; border-radius: 999px;
+      background: transparent; border: 1px solid var(--secondary);
+      color: var(--secondary); transition: all 0.2s;
+    }
+    .rsvp-btn:hover, .rsvp-btn.rsvped { background: var(--secondary); color: #fff; }
+    .rsvp-btn.rsvped { border-color: var(--secondary); }
+
+    /* List view card variant */
+    .events-grid.list-view .event-card { flex-direction: row; min-height: 140px; }
+    .events-grid.list-view .event-card__img-wrap { width: 200px; height: auto; flex-shrink: 0; }
+    .events-grid.list-view .event-card__body { padding: 1.5rem; }
+    @media (max-width: 600px) { .events-grid.list-view .event-card { flex-direction: column; } .events-grid.list-view .event-card__img-wrap { width: 100%; height: 180px; } }
+
+    /* =============================================
+       CALENDAR SECTION
+    ============================================= */
+    .calendar-section { padding: 5rem 0; background: var(--surface-container-low); border-top: 1px solid rgba(70,72,74,0.12); }
+    .calendar-wrap { background: var(--surface-container); border-radius: 1.25rem; padding: 2rem; border: 1px solid rgba(70,72,74,0.15); max-width: 700px; }
+    .cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.5rem; }
+    .cal-month { font-family: var(--font-headline); font-size: 1.3rem; font-weight: 700; color: var(--on-background); }
+    .cal-nav-btn { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--outline-variant); color: var(--on-surface-variant); display: flex; align-items: center; justify-content: center; transition: all 0.2s; cursor: pointer; }
+    .cal-nav-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-day-label { text-align: center; font-family: var(--font-label); font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-variant); padding-bottom: 0.5rem; }
+    .cal-day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-family: var(--font-body); font-size: 0.8rem; color: var(--on-surface-variant); cursor: default; transition: all 0.2s; }
+    .cal-day.other-month { opacity: 0.25; }
+    .cal-day.has-event { background: rgba(255,81,250,0.15); color: var(--secondary); cursor: pointer; font-weight: 700; }
+    .cal-day.has-event:hover { background: rgba(255,81,250,0.3); }
+    .cal-day.today { border: 1px solid var(--primary); color: var(--primary); font-weight: 700; }
+    .cal-day.selected { background: var(--primary); color: var(--on-primary); font-weight: 700; }
+    .cal-events-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; min-height: 60px; }
+    .cal-event-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem; background: var(--surface-container-high); border-radius: 0.6rem; font-size: 0.82rem; color: var(--on-surface); cursor: pointer; transition: background 0.2s; }
+    .cal-event-item:hover { background: var(--surface-container-highest); }
+    .cal-event-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--secondary); flex-shrink: 0; }
+    .cal-event-item strong { font-weight: 700; }
+
+    /* =============================================
+       EVENT REGISTRATION MODAL
+    ============================================= */
+    .modal-overlay { position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; padding: 1rem; }
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+    .modal { background: var(--surface-container-high); border-radius: 1.25rem; max-width: 560px; width: 100%; max-height: 90vh; overflow-y: auto; transform: scale(0.92) translateY(20px); transition: transform 0.35s cubic-bezier(0.16,1,0.3,1); border: 1px solid rgba(70,72,74,0.25); }
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+    .modal__img { width: 100%; height: 220px; object-fit: cover; border-radius: 1.25rem 1.25rem 0 0; }
+    .modal__body { padding: 2rem; }
+    .modal__tag { font-family: var(--font-label); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary); margin-bottom: 0.5rem; display: block; }
+    .modal__title { font-family: var(--font-headline); font-size: 1.5rem; font-weight: 700; color: var(--on-background); margin-bottom: 1rem; }
+    .modal__info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem; }
+    .modal__info-item { background: var(--surface-container); border-radius: 0.6rem; padding: 0.75rem; }
+    .modal__info-label { font-family: var(--font-label); font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-surface-variant); margin-bottom: 0.2rem; }
+    .modal__info-value { font-size: 0.85rem; font-weight: 600; color: var(--on-surface); }
+    .modal__desc { font-size: 0.88rem; line-height: 1.75; color: var(--on-surface-variant); margin-bottom: 1.5rem; }
+    .modal__close { position: sticky; top: 1rem; float: right; z-index: 10; width: 36px; height: 36px; border-radius: 50%; background: var(--surface-container-highest); border: 1px solid var(--outline-variant); display: flex; align-items: center; justify-content: center; color: var(--on-surface); transition: background 0.2s; margin: 1rem 1rem 0 0; }
+    .modal__close:hover { background: var(--surface-bright); }
+
+    /* Registration form */
+    .reg-form { display: flex; flex-direction: column; gap: 0.75rem; }
+    .form-field label { font-family: var(--font-label); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--on-surface-variant); display: block; margin-bottom: 0.35rem; }
+    .form-field input, .form-field select { width: 100%; background: var(--surface-container); border: 1px solid var(--outline-variant); border-radius: 0.5rem; padding: 0.75rem; color: var(--on-surface); font-family: var(--font-body); font-size: 0.88rem; outline: none; transition: border-color 0.2s; }
+    .form-field input:focus, .form-field select:focus { border-color: var(--primary); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .reg-submit { width: 100%; background: var(--secondary); color: #fff; padding: 0.9rem; border-radius: 999px; font-family: var(--font-label); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; transition: opacity 0.2s, transform 0.2s; margin-top: 0.5rem; }
+    .reg-submit:hover { opacity: 0.9; }
+    .reg-submit:active { transform: scale(0.97); }
+    .reg-success { text-align: center; padding: 1.5rem 0; }
+    .reg-success .material-symbols-outlined { font-size: 3rem; color: #28c882; display: block; margin-bottom: 0.75rem; }
+    .reg-success h3 { font-family: var(--font-headline); color: var(--on-background); margin-bottom: 0.5rem; }
+    .reg-success p { font-size: 0.85rem; color: var(--on-surface-variant); }
+
+    /* =============================================
+       MY REGISTRATIONS SECTION
+    ============================================= */
+    .my-reg-section { padding: 5rem 0; }
+    .my-reg-section .section-title { margin-bottom: 0.4rem; }
+    .reg-tabs { display: flex; gap: 0.5rem; margin: 1.5rem 0 2rem; }
+    .reg-tab-btn {
+      font-family: var(--font-label); font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.55rem 1.3rem; border-radius: 999px;
+      border: 1px solid var(--outline-variant); color: var(--on-surface-variant);
+      transition: all 0.2s; cursor: pointer;
+    }
+    .reg-tab-btn.active { background: var(--primary); color: var(--on-primary); border-color: var(--primary); }
+    .reg-tab-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary); }
+    .reg-empty {
+      text-align: center; padding: 4rem 2rem;
+      background: var(--surface-container); border-radius: 1rem;
+      border: 1px dashed var(--outline-variant);
+    }
+    .reg-empty .material-symbols-outlined { font-size: 2.5rem; color: var(--on-surface-variant); display: block; margin-bottom: 0.75rem; }
+    .reg-empty p { font-size: 0.88rem; color: var(--on-surface-variant); margin-bottom: 1.25rem; }
+    .reg-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+    @media (max-width: 768px) { .reg-grid { grid-template-columns: 1fr; } }
+    .reg-card {
+      background: var(--surface-container); border-radius: 1rem;
+      border: 1px solid rgba(70,72,74,0.15); overflow: hidden;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .reg-card:hover { border-color: rgba(129,236,255,0.25); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+    .reg-card__top { display: flex; gap: 0; }
+    .reg-card__img { width: 110px; height: 110px; object-fit: cover; flex-shrink: 0; }
+    .reg-card__info { padding: 1rem; flex: 1; min-width: 0; }
+    .reg-card__name { font-family: var(--font-headline); font-size: 0.95rem; font-weight: 700; color: var(--on-surface); margin-bottom: 0.4rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .reg-card__meta { font-size: 0.75rem; color: var(--on-surface-variant); display: flex; flex-direction: column; gap: 0.2rem; }
+    .reg-card__meta span { display: flex; align-items: center; gap: 0.3rem; }
+    .reg-card__meta .material-symbols-outlined { font-size: 0.85rem; flex-shrink: 0; }
+    .reg-card__footer {
+      border-top: 1px solid rgba(70,72,74,0.12);
+      padding: 0.75rem 1rem; display: flex; align-items: center;
+      justify-content: space-between; gap: 0.5rem; flex-wrap: wrap;
+    }
+    .reg-card__ticket {
+      font-family: var(--font-label); font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.3rem 0.8rem; border-radius: 999px;
+      background: rgba(129,236,255,0.12); color: var(--primary);
+    }
+    .reg-card__cancel {
+      font-family: var(--font-label); font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--on-surface-variant); border: 1px solid var(--outline-variant);
+      padding: 0.3rem 0.8rem; border-radius: 999px; transition: all 0.2s;
+    }
+    .reg-card__cancel:hover { border-color: #ef4444; color: #ef4444; }
+    .reg-card__registered { font-size: 0.68rem; color: var(--on-surface-variant); }
+
+    /* =============================================
+       NEWSLETTER
+    ============================================= */
+    .newsletter { padding: 5rem 0; }
+    .newsletter__inner { background: var(--surface-container-high); border-radius: 1.5rem; padding: 4rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1.5rem; border: 1px solid rgba(70,72,74,0.15); }
+    .newsletter__title { font-family: var(--font-headline); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--on-background); }
+    .newsletter__sub { color: var(--on-surface-variant); max-width: 440px; }
+    .newsletter__form { display: flex; gap: 0.75rem; width: 100%; max-width: 460px; flex-wrap: wrap; justify-content: center; }
+    .newsletter__input { flex: 1; min-width: 200px; background: var(--surface-container); border: 1px solid var(--outline-variant); border-radius: 999px; padding: 0.85rem 1.5rem; color: var(--on-surface); font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+    .newsletter__input:focus { border-color: var(--primary); }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer { background: var(--surface-container-low); border-top: 1px solid rgba(70,72,74,0.15); padding: 3rem 0; }
+    .footer__inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem; }
+    @media (max-width: 640px) { .footer__inner { grid-template-columns: 1fr; text-align: center; } .footer__links { justify-content: center; } }
+    .footer__logo { font-family: var(--font-headline); font-size: 1.1rem; font-weight: 900; color: var(--on-surface); margin-bottom: 0.35rem; }
+    .footer__copy { font-size: 0.78rem; color: rgba(238,238,240,0.4); text-transform: lowercase; }
+    .footer__links { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .footer__links a { font-family: var(--font-label); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(238,238,240,0.5); transition: color 0.25s; }
+    .footer__links a:hover { color: var(--secondary); }
+
+    /* Toast */
+    .toast { position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(120%); background: var(--surface-container-highest); border: 1px solid var(--outline-variant); color: var(--on-surface); font-family: var(--font-label); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; padding: 0.85rem 1.8rem; border-radius: 999px; z-index: 3000; box-shadow: 0 12px 32px rgba(0,0,0,0.4); transition: transform 0.4s cubic-bezier(0.16,1,0.3,1); }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="main-nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__logo">NEON EDITORIAL</a>
+      <ul class="nav__groups" role="list">
+        <li class="nav__group">
+          <button class="nav__group-btn">Main <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+          <div class="nav__dropdown"><a href="index.html">Home</a><a href="about.html">About</a></div>
+        </li>
+        <li class="nav__group">
+          <button class="nav__group-btn active-dot" style="color:var(--primary)">Content <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+          <div class="nav__dropdown">
+            <a href="news.html">News</a>
+            <a href="events.html" class="dd-active">Events</a>
+          </div>
+        </li>
+        <li class="nav__group">
+          <button class="nav__group-btn">Community <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+          <div class="nav__dropdown" style="min-width:210px"><a href="gallery.html">Cosplay Gallery</a><a href="spotlight.html">Spotlight</a></div>
+        </li>
+        <li class="nav__group">
+          <button class="nav__group-btn">Interaction <span class="material-symbols-outlined" style="font-size:1rem">expand_more</span></button>
+          <div class="nav__dropdown"><a href="reviews.html">Reviews</a><a href="contact.html">Contact</a></div>
+        </li>
+      </ul>
+      <div class="nav__actions">
+        <span id="welcome-banner">Welcome, Guest</span>
+        <button id="theme-toggle" class="nav__btn"><span class="material-symbols-outlined" id="theme-icon">light_mode</span></button>
+        <button id="user-toggle" class="nav__btn"><span class="material-symbols-outlined">account_circle</span></button>
+      </div>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div class="settings-panel" id="settings-panel">
+    <h3>User Identity</h3>
+    <p style="font-size:0.75rem;color:var(--on-surface-variant);margin-bottom:1rem;">Set your name for a personalized experience.</p>
+    <input type="text" id="user-name-input" class="settings-input" placeholder="Your Name" maxlength="20">
+    <button id="save-settings" class="settings-save">Save Identity</button>
+  </div>
+
+  <div class="nav__drawer" id="nav-drawer">
+    <a href="index.html">Home</a><a href="about.html">About</a>
+    <a href="news.html">News</a><a href="events.html" style="color:var(--primary)">Events</a>
+    <a href="gallery.html">Cosplay Gallery</a><a href="spotlight.html">Spotlight</a>
+    <a href="reviews.html">Reviews</a><a href="contact.html">Contact</a>
+  </div>
+
+  <main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+      <div class="container">
+        <p class="page-hero__eyebrow" data-reveal>What's On</p>
+        <h1 class="page-hero__title" data-reveal data-reveal-delay="1">Anime<br><span>Events</span></h1>
+        <p class="page-hero__desc" data-reveal data-reveal-delay="2">Conventions, screenings, cosplay contests, and fan meetups from around the world. Register your spot before they sell out.</p>
+      </div>
+    </section>
+
+    <!-- STATS STRIP -->
+    <div class="stats-strip" data-reveal>
+      <div class="container">
+        <div class="stats-inner">
+          <div class="stat"><div class="stat__num" id="stat-upcoming">24</div><div class="stat__label">Upcoming Events</div></div>
+          <div class="stat"><div class="stat__num">12</div><div class="stat__label">Countries</div></div>
+          <div class="stat"><div class="stat__num" id="stat-rsvps">0</div><div class="stat__label">Your RSVPs</div></div>
+          <div class="stat"><div class="stat__num">4</div><div class="stat__label">This Month</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURED EVENT -->
+    <section style="padding: 0 0 3rem;">
+      <div class="container">
+        <div class="featured-event" id="featured-event" data-reveal onclick="openModal(EVENTS[0])">
+          <div class="featured-event__img">
+            <img src="https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?w=900&q=80" alt="AnimeJapan 2025" loading="lazy">
+            <div class="featured-event__img-overlay"></div>
+          </div>
+          <div class="featured-event__body">
+            <div class="featured-event__tag">Featured · Live Now</div>
+            <h2 class="featured-event__title">AnimeJapan 2025 — The Grand Return</h2>
+            <div class="featured-event__info">
+              <div class="info-row"><span class="material-symbols-outlined">calendar_month</span>March 22–25, 2025</div>
+              <div class="info-row"><span class="material-symbols-outlined">location_on</span>Tokyo Big Sight, Tokyo, Japan</div>
+              <div class="info-row"><span class="material-symbols-outlined">group</span>120,000+ Expected Attendees</div>
+              <div class="info-row"><span class="material-symbols-outlined">sell</span>From ¥2,500 / ~$17 USD</div>
+            </div>
+            <div class="featured-event__actions">
+              <button class="btn btn--primary" onclick="event.stopPropagation();openModal(EVENTS[0])">Register Now</button>
+              <button class="btn btn--outline" onclick="event.stopPropagation()">Learn More</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EVENTS SECTION -->
+    <section style="padding: 0 0 5rem;">
+      <div class="container">
+        <div class="events-controls" data-reveal>
+          <div>
+            <h2 class="section-title">All Events</h2>
+            <p class="section-sub">2025 Season</p>
+          </div>
+          <div class="view-toggle">
+            <button class="view-btn active" id="grid-view-btn" onclick="setView('grid')" title="Grid view"><span class="material-symbols-outlined" style="font-size:1.1rem">grid_view</span></button>
+            <button class="view-btn" id="list-view-btn" onclick="setView('list')" title="List view"><span class="material-symbols-outlined" style="font-size:1.1rem">view_list</span></button>
+          </div>
+        </div>
+        <div class="filter-tabs" id="event-filter-tabs">
+          <button class="filter-tab active" data-type="all">All Types</button>
+          <button class="filter-tab" data-type="convention">Convention</button>
+          <button class="filter-tab" data-type="cosplay">Cosplay</button>
+          <button class="filter-tab" data-type="screening">Screening</button>
+          <button class="filter-tab" data-type="meetup">Meetup</button>
+          <button class="filter-tab" data-type="online">Online</button>
+        </div>
+        <div class="events-grid" id="events-grid"></div>
+      </div>
+    </section>
+
+    <!-- CALENDAR SECTION -->
+    <section class="calendar-section" data-reveal>
+      <div class="container">
+        <div style="display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:start;flex-wrap:wrap">
+          <div>
+            <p class="section-sub" style="margin-bottom:0.5rem">Monthly View</p>
+            <h2 class="section-title" style="margin-bottom:2rem">Event Calendar</h2>
+            <div class="calendar-wrap">
+              <div class="cal-header">
+                <button class="cal-nav-btn" onclick="changeMonth(-1)"><span class="material-symbols-outlined" style="font-size:1.1rem">chevron_left</span></button>
+                <span class="cal-month" id="cal-month-label"></span>
+                <button class="cal-nav-btn" onclick="changeMonth(1)"><span class="material-symbols-outlined" style="font-size:1.1rem">chevron_right</span></button>
+              </div>
+              <div class="cal-grid" id="cal-grid"></div>
+              <div class="cal-events-list" id="cal-events-list">
+                <p style="font-size:0.8rem;color:var(--on-surface-variant);text-align:center;padding:1rem 0">Select a highlighted date to view events.</p>
+              </div>
+            </div>
+          </div>
+          <div style="max-width:300px" class="hide-on-small">
+            <p class="section-sub" style="margin-bottom:0.5rem">Quick Facts</p>
+            <h3 style="font-family:var(--font-headline);font-size:1.5rem;color:var(--on-background);margin-bottom:1.5rem">Your Event Stats</h3>
+            <div id="rsvp-summary" style="display:flex;flex-direction:column;gap:0.75rem"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MY REGISTRATIONS SECTION -->
+    <section class="my-reg-section" id="my-registrations">
+      <div class="container">
+        <p class="section-sub" style="margin-bottom:0.4rem" data-reveal>Your Account</p>
+        <h2 class="section-title" data-reveal data-reveal-delay="1">My Registrations</h2>
+        <p style="color:var(--on-surface-variant);font-size:0.9rem;margin-bottom:0.5rem" data-reveal data-reveal-delay="2">Events you've signed up for, saved to your browser.</p>
+        <div class="reg-tabs">
+          <button class="reg-tab-btn active" data-reg-tab="upcoming">Upcoming</button>
+          <button class="reg-tab-btn" data-reg-tab="all">All Registrations</button>
+        </div>
+        <div id="reg-cards-wrap"></div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+      <div class="container">
+        <div class="newsletter__inner" data-reveal>
+          <span class="badge">Stay Informed</span>
+          <h2 class="newsletter__title">Never Miss an Event</h2>
+          <p class="newsletter__sub">Get weekly event round-ups and early-bird registration alerts straight to your inbox.</p>
+          <form class="newsletter__form" id="newsletter-form">
+            <input type="email" class="newsletter__input" placeholder="your@email.com" required>
+            <button type="submit" class="btn btn--primary">Subscribe</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- EVENT MODAL -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <button class="modal__close" id="modal-close"><span class="material-symbols-outlined" style="font-size:1.1rem">close</span></button>
+      <img class="modal__img" id="modal-img" src="" alt="">
+      <div class="modal__body">
+        <span class="modal__tag" id="modal-tag"></span>
+        <h2 class="modal__title" id="modal-title"></h2>
+        <div class="modal__info-grid" id="modal-info-grid"></div>
+        <p class="modal__desc" id="modal-desc"></p>
+        <div id="modal-form-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div><div class="footer__logo">NEON EDITORIAL.</div><div class="footer__copy">© 2025 Neon Editorial. The Electric Curator.</div></div>
+      <nav class="footer__links"><a href="#">Terms</a><a href="#">Privacy</a><a href="#">Newsletter</a><a href="contact.html">Contact</a></nav>
+    </div>
+  </footer>
+
+  <script>
+    /* =============================================
+       SHARED NAV / THEME / USER
+    ============================================= */
+    const nav = document.getElementById('main-nav');
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40), { passive: true });
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    hamburger.addEventListener('click', () => { const o = hamburger.classList.toggle('open'); drawer.classList.toggle('open', o); hamburger.setAttribute('aria-expanded', String(o)); });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { hamburger.classList.remove('open'); drawer.classList.remove('open'); hamburger.setAttribute('aria-expanded','false'); }));
+
+    const setPreference = (k,v) => localStorage.setItem(k,v);
+    const getPreference = k => localStorage.getItem(k)||'';
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const userToggle = document.getElementById('user-toggle');
+    const settingsPanel = document.getElementById('settings-panel');
+    const nameInput = document.getElementById('user-name-input');
+    const saveBtn = document.getElementById('save-settings');
+    const welcomeBanner = document.getElementById('welcome-banner');
+    const updateWelcome = name => { welcomeBanner.textContent = name ? `Welcome, ${name}` : ''; welcomeBanner.style.display = name ? 'block' : 'none'; };
+    if (getPreference('user_theme') === 'light') { document.documentElement.classList.add('light-mode'); themeIcon.textContent = 'dark_mode'; }
+    const sn = getPreference('user_name'); if (sn) { updateWelcome(sn); nameInput.value = sn; }
+    themeToggle.addEventListener('click', () => { const l = document.documentElement.classList.toggle('light-mode'); themeIcon.textContent = l?'dark_mode':'light_mode'; setPreference('user_theme',l?'light':'dark'); });
+    userToggle.addEventListener('click', e => { e.stopPropagation(); settingsPanel.classList.toggle('open'); });
+    saveBtn.addEventListener('click', () => { const n = nameInput.value.trim(); setPreference('user_name',n); updateWelcome(n); settingsPanel.classList.remove('open'); showToast('Identity saved!'); });
+    document.addEventListener('click', e => { if (!settingsPanel.contains(e.target) && e.target !== userToggle && !userToggle.contains(e.target)) settingsPanel.classList.remove('open'); });
+
+    const ro = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); ro.unobserve(e.target); } }); }, { threshold: 0.1, rootMargin:'0px 0px -40px 0px' });
+    document.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+
+    const toast = document.getElementById('toast');
+    function showToast(msg, duration=2500) { toast.textContent=msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'), duration); }
+
+    /* =============================================
+       SESSION STORAGE — last viewed event
+    ============================================= */
+    function saveLastEvent(ev) {
+      sessionStorage.setItem('last_event', JSON.stringify({ id: ev.id, name: ev.name, ts: Date.now() }));
+    }
+
+    /* =============================================
+       LOCAL STORAGE — full registration details
+    ============================================= */
+    function getRegistrations() {
+      try { return JSON.parse(localStorage.getItem('event_registrations') || '[]'); } catch { return []; }
+    }
+    function saveRegistrations(arr) { localStorage.setItem('event_registrations', JSON.stringify(arr)); }
+    function getRsvps() { return getRegistrations().map(r => r.eventId); }
+    function isRsvped(id) { return getRsvps().includes(id); }
+    function cancelRegistration(id) {
+      const arr = getRegistrations().filter(r => r.eventId !== id);
+      saveRegistrations(arr);
+      updateRsvpCount();
+      updateRsvpSummary();
+      renderMyRegistrations();
+      renderEvents();
+    }
+    function toggleRsvp(id) {
+      if (isRsvped(id)) { cancelRegistration(id); }
+      updateRsvpCount();
+      updateRsvpSummary();
+    }
+    function updateRsvpCount() {
+      document.getElementById('stat-rsvps').textContent = getRsvps().length;
+    }
+
+    /* =============================================
+       EVENTS DATA
+    ============================================= */
+    const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    const EVENTS = [
+      { id:1, name:'AnimeJapan 2025', type:'convention', date:'2025-03-22', endDate:'2025-03-25', location:'Tokyo Big Sight, Japan', country:'Japan', price:'From ¥2,500', attendees:'120,000+', img:'https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?w=700&q=80', desc:'The world\'s largest anime trade show returns to Tokyo Big Sight. Major studios reveal upcoming seasons, exclusive merchandise drops, and legendary seiyuu panels you can\'t miss.' },
+      { id:2, name:'Anime Expo 2025', type:'convention', date:'2025-07-04', endDate:'2025-07-07', location:'Los Angeles Convention Center, USA', country:'USA', price:'From $75', attendees:'100,000+', img:'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=700&q=80', desc:'North America\'s largest anime convention returns to LA. World premieres, exclusive panels, enormous dealer hall, and a cosplay masquerade that draws thousands of competitors.' },
+      { id:3, name:'Cosplay World Masters', type:'cosplay', date:'2025-05-15', endDate:'2025-05-17', location:'Vienna, Austria', country:'Austria', price:'€35', attendees:'8,000+', img:'https://images.unsplash.com/photo-1603739903239-8b6e64c3b185?w=700&q=80', desc:'The premier international cosplay competition. National champions compete on a world stage judged by industry veterans. Costume craftsmanship, performance, and originality all count.' },
+      { id:4, name:'Madman Anime Festival', type:'convention', date:'2025-08-09', endDate:'2025-08-10', location:'Sydney, Australia', country:'Australia', price:'From A$60', attendees:'30,000+', img:'https://images.unsplash.com/photo-1531259683007-016a7b628fc3?w=700&q=80', desc:'Australia\'s biggest anime festival with exclusive guest announcements, themed cafes, immersive art installations, and the Cosplay Championship of Australia.' },
+      { id:5, name:'Sakura Anime Night', type:'screening', date:'2025-04-05', endDate:'2025-04-05', location:'BFI Southbank, London, UK', country:'UK', price:'£18', attendees:'500', img:'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=700&q=80', desc:'A curated evening of classic and contemporary anime shorts screened in 4K with live piano accompaniment. Followed by a director Q&A session.' },
+      { id:6, name:'AniManGaki', type:'convention', date:'2025-08-23', endDate:'2025-08-24', location:'Sunway Pyramid, Malaysia', country:'Malaysia', price:'RM45', attendees:'20,000+', img:'https://images.unsplash.com/photo-1601513445506-2ab0d4fb4229?w=700&q=80', desc:'Southeast Asia\'s beloved anime and manga culture festival hosted annually in the heart of Kuala Lumpur. Cosplay, artist booths, gaming tournaments, and idol performances.' },
+      { id:7, name:'Tokyo Fan Meetup', type:'meetup', date:'2025-04-20', endDate:'2025-04-20', location:'Akihabara Electric Town, Tokyo', country:'Japan', price:'Free', attendees:'200', img:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=700&q=80', desc:'A casual fan gathering in the heart of Akihabara. Share your manga hauls, meet local collectors, and explore the district\'s hidden treasure stores together.' },
+      { id:8, name:'Virtual Anime Summit', type:'online', date:'2025-06-01', endDate:'2025-06-03', location:'Online (Discord + Twitch)', country:'Global', price:'Free', attendees:'50,000+', img:'https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?w=700&q=80', desc:'A 3-day global online event featuring industry panels, simulwatch parties, AMV competitions, and exclusive announcements from top studios — all streamed live worldwide.' },
+      { id:9, name:'CCXP Asia 2025', type:'convention', date:'2025-10-03', endDate:'2025-10-05', location:'Singapore Expo, Singapore', country:'Singapore', price:'From S$30', attendees:'40,000+', img:'https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=700&q=80', desc:'The Asian edition of the world\'s biggest pop culture celebration. Anime, manga, gaming, comics and cosplay under one roof with international celebrity guests.' },
+      { id:10, name:'Cosplay Charity Ball', type:'cosplay', date:'2025-05-30', endDate:'2025-05-30', location:'Melbourne, Australia', country:'Australia', price:'A$55', attendees:'600', img:'https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=700&q=80', desc:'A glamorous charity fundraiser where elaborate cosplay meets formal dining. All proceeds support children\'s literacy programs. Prizes for best costume across five categories.' },
+      { id:11, name:'Anime NYC 2025', type:'convention', date:'2025-11-21', endDate:'2025-11-23', location:'Javits Center, New York, USA', country:'USA', price:'From $60', attendees:'50,000+', img:'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=700&q=80', desc:'New York City\'s premier anime convention returns with exclusive premieres, Japanese band performances, and the largest artist alley on the East Coast.' },
+      { id:12, name:'Hyper Japan Christmas', type:'meetup', date:'2025-12-12', endDate:'2025-12-14', location:'Tobacco Dock, London, UK', country:'UK', price:'£22', attendees:'15,000+', img:'https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=700&q=80', desc:'Celebrate the holiday season with a Japanese twist. Anime screenings, karaoke, street food, and a sprawling marketplace of Japanese import goods and artisan crafts.' },
+    ];
+
+    /* =============================================
+       RENDER EVENTS GRID
+    ============================================= */
+    let currentFilter = 'all';
+    let currentView   = 'grid';
+
+    function renderEvents() {
+      const grid = document.getElementById('events-grid');
+      const filtered = currentFilter === 'all' ? EVENTS : EVENTS.filter(e => e.type === currentFilter);
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:var(--on-surface-variant)">No events in this category yet.</div>';
+        return;
+      }
+      grid.innerHTML = filtered.map((ev, i) => {
+        const d = new Date(ev.date);
+        const day = d.getDate();
+        const mon = MONTHS[d.getMonth()];
+        const rsvped = isRsvped(ev.id);
+        return `
+        <div class="event-card" data-reveal style="transition-delay:${(i%3)*0.07}s" onclick="openModal(EVENTS.find(e=>e.id===${ev.id}))">
+          <div class="event-card__img-wrap">
+            <img src="${ev.img}" alt="${ev.name}" loading="lazy">
+            <div class="event-card__date-badge"><div class="day">${day}</div><div class="mon">${mon}</div></div>
+          </div>
+          <div class="event-card__body">
+            <div class="event-card__type">${ev.type}</div>
+            <h3 class="event-card__title">${ev.name}</h3>
+            <div class="event-card__loc"><span class="material-symbols-outlined">location_on</span>${ev.location}</div>
+            <div class="event-card__loc"><span class="material-symbols-outlined">sell</span>${ev.price}</div>
+            <div class="event-card__footer">
+              <span class="event-card__attendees"><span class="material-symbols-outlined">group</span>${ev.attendees}</span>
+              <button class="rsvp-btn ${rsvped?'rsvped':''}" onclick="event.stopPropagation();handleRsvp(${ev.id}, this)" data-id="${ev.id}">
+                ${rsvped ? '✓ Going' : 'RSVP'}
+              </button>
+            </div>
+          </div>
+        </div>`;
+      }).join('');
+      grid.querySelectorAll('[data-reveal]').forEach(el => ro.observe(el));
+    }
+
+    function handleRsvp(id, btn) {
+      toggleRsvp(id);
+      const now = isRsvped(id);
+      btn.textContent = now ? '✓ Going' : 'RSVP';
+      btn.classList.toggle('rsvped', now);
+      showToast(now ? 'Added to your RSVPs!' : 'RSVP removed.');
+    }
+
+    function setView(v) {
+      currentView = v;
+      const grid = document.getElementById('events-grid');
+      grid.classList.toggle('list-view', v === 'list');
+      document.getElementById('grid-view-btn').classList.toggle('active', v === 'grid');
+      document.getElementById('list-view-btn').classList.toggle('active', v === 'list');
+    }
+
+    document.getElementById('event-filter-tabs').addEventListener('click', e => {
+      const tab = e.target.closest('.filter-tab');
+      if (!tab) return;
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      currentFilter = tab.dataset.type;
+      renderEvents();
+    });
+
+    /* =============================================
+       RSVP SUMMARY SIDEBAR
+    ============================================= */
+    function updateRsvpSummary() {
+      const rsvps = getRsvps();
+      const container = document.getElementById('rsvp-summary');
+      if (rsvps.length === 0) {
+        container.innerHTML = '<p style="font-size:0.82rem;color:var(--on-surface-variant)">No RSVPs yet. Click RSVP on any event card to save your spot.</p>';
+        return;
+      }
+      container.innerHTML = rsvps.slice(0, 5).map(id => {
+        const ev = EVENTS.find(e => e.id === id);
+        if (!ev) return '';
+        const d = new Date(ev.date);
+        return `<div style="display:flex;gap:0.75rem;align-items:center;background:var(--surface-container);padding:0.75rem;border-radius:0.6rem">
+          <div style="width:36px;height:36px;border-radius:0.4rem;overflow:hidden;flex-shrink:0"><img src="${ev.img}" style="width:100%;height:100%;object-fit:cover" alt="${ev.name}"></div>
+          <div><div style="font-size:0.78rem;font-weight:700;color:var(--on-surface)">${ev.name}</div><div style="font-size:0.68rem;color:var(--on-surface-variant)">${d.toLocaleDateString('en-US',{month:'short',day:'numeric'})}</div></div>
+        </div>`;
+      }).join('');
+      if (rsvps.length > 5) container.innerHTML += `<p style="font-size:0.72rem;color:var(--on-surface-variant);text-align:center">+${rsvps.length-5} more</p>`;
+    }
+
+    /* =============================================
+       MODAL
+    ============================================= */
+    const modalOverlay = document.getElementById('modal-overlay');
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function openModal(ev) {
+      if (!ev) return;
+      saveLastEvent(ev);
+      const d  = new Date(ev.date);
+      const d2 = ev.endDate ? new Date(ev.endDate) : null;
+      document.getElementById('modal-img').src = ev.img;
+      document.getElementById('modal-img').alt = ev.name;
+      document.getElementById('modal-tag').textContent = `${ev.type.charAt(0).toUpperCase()+ev.type.slice(1)} · ${ev.country}`;
+      document.getElementById('modal-title').textContent = ev.name;
+      document.getElementById('modal-info-grid').innerHTML = `
+        <div class="modal__info-item"><div class="modal__info-label">Date</div><div class="modal__info-value">${d.toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}${d2 && d2.getTime()!==d.getTime() ? ' – '+d2.toLocaleDateString('en-US',{month:'short',day:'numeric'}) : ''}</div></div>
+        <div class="modal__info-item"><div class="modal__info-label">Location</div><div class="modal__info-value">${ev.location}</div></div>
+        <div class="modal__info-item"><div class="modal__info-label">Ticket Price</div><div class="modal__info-value">${ev.price}</div></div>
+        <div class="modal__info-item"><div class="modal__info-label">Expected</div><div class="modal__info-value">${ev.attendees}</div></div>`;
+      document.getElementById('modal-desc').textContent = ev.desc;
+      showRegistrationForm(ev);
+      modalOverlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() { modalOverlay.classList.remove('open'); document.body.style.overflow = ''; }
+
+    function showRegistrationForm(ev) {
+      const container = document.getElementById('modal-form-container');
+      if (isRsvped(ev.id)) {
+        const reg = getRegistrations().find(r => r.eventId === ev.id);
+        const regDate = reg ? new Date(reg.registeredAt).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+        container.innerHTML = `
+          <div class="reg-success">
+            <span class="material-symbols-outlined">check_circle</span>
+            <h3>You're registered!</h3>
+            <p>Registered as <strong>${reg ? reg.firstName + ' ' + reg.lastName : 'Guest'}</strong> · ${reg ? reg.ticketType : ''} × ${reg ? reg.qty : 1}</p>
+            <p style="margin-top:0.4rem;font-size:0.75rem">Confirmation sent to <strong>${reg ? reg.email : ''}</strong></p>
+            <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1.25rem;flex-wrap:wrap">
+              <a href="#my-registrations" onclick="closeModal()" class="btn btn--primary" style="font-size:0.68rem;padding:0.75rem 1.5rem;text-decoration:none">View My Registrations</a>
+              <button class="btn btn--outline" style="font-size:0.68rem;padding:0.75rem 1.5rem" onclick="cancelRegistration(${ev.id});showRegistrationForm(EVENTS.find(e=>e.id===${ev.id}))">Cancel RSVP</button>
+            </div>
+          </div>`;
+        return;
+      }
+      container.innerHTML = `
+        <h4 style="font-family:var(--font-headline);font-size:1rem;margin-bottom:1rem;color:var(--on-surface)">Register for this Event</h4>
+        <form class="reg-form" id="reg-form-${ev.id}" onsubmit="submitReg(event, ${ev.id})">
+          <div class="form-row">
+            <div class="form-field"><label>First Name</label><input type="text" placeholder="Alex" required></div>
+            <div class="form-field"><label>Last Name</label><input type="text" placeholder="Kim" required></div>
+          </div>
+          <div class="form-field"><label>Email Address</label><input type="email" placeholder="you@example.com" required></div>
+          <div class="form-row">
+            <div class="form-field"><label>Ticket Type</label>
+              <select><option>General Admission</option><option>VIP</option><option>Student</option></select>
+            </div>
+            <div class="form-field"><label>Quantity</label>
+              <select><option>1</option><option>2</option><option>3</option><option>4</option></select>
+            </div>
+          </div>
+          <button type="submit" class="reg-submit">Confirm Registration</button>
+        </form>`;
+    }
+
+    function submitReg(e, evId) {
+      e.preventDefault();
+      const form = e.target;
+      const inputs = form.querySelectorAll('input, select');
+      const firstName  = inputs[0].value.trim();
+      const lastName   = inputs[1].value.trim();
+      const email      = inputs[2].value.trim();
+      const ticketType = inputs[3].value;
+      const qty        = inputs[4].value;
+      const ev = EVENTS.find(ev => ev.id === evId);
+
+      const reg = {
+        eventId:    evId,
+        eventName:  ev.name,
+        eventDate:  ev.date,
+        eventImg:   ev.img,
+        eventLoc:   ev.location,
+        eventType:  ev.type,
+        firstName,
+        lastName,
+        email,
+        ticketType,
+        qty,
+        registeredAt: new Date().toISOString()
+      };
+
+      const existing = getRegistrations().filter(r => r.eventId !== evId);
+      saveRegistrations([...existing, reg]);
+
+      renderEvents();
+      updateRsvpCount();
+      updateRsvpSummary();
+      renderMyRegistrations();
+      showRegistrationForm(ev);
+      showToast('Registration confirmed!');
+    }
+
+    /* =============================================
+       CALENDAR
+    ============================================= */
+    let calDate = new Date();
+
+    function buildCalendar(year, month) {
+      const label = document.getElementById('cal-month-label');
+      label.textContent = new Date(year, month).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+      const grid = document.getElementById('cal-grid');
+      const days = ['S','M','T','W','T','F','S'];
+      let html = days.map(d => `<div class="cal-day-label">${d}</div>`).join('');
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const prevDays = new Date(year, month, 0).getDate();
+      const today = new Date();
+
+      // Prev month
+      for (let i = firstDay - 1; i >= 0; i--) html += `<div class="cal-day other-month">${prevDays - i}</div>`;
+
+      // Current month
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+        const hasEvent = EVENTS.some(e => e.date === dateStr || (e.date <= dateStr && e.endDate >= dateStr));
+        const isToday = today.getFullYear()===year && today.getMonth()===month && today.getDate()===d;
+        html += `<div class="cal-day ${hasEvent?'has-event':''} ${isToday?'today':''}" onclick="${hasEvent ? `selectCalDay('${dateStr}', this)` : ''}">${d}</div>`;
+      }
+
+      // Next month fill
+      const total = firstDay + daysInMonth;
+      const remaining = total % 7 === 0 ? 0 : 7 - (total % 7);
+      for (let d = 1; d <= remaining; d++) html += `<div class="cal-day other-month">${d}</div>`;
+
+      grid.innerHTML = html;
+    }
+
+    function selectCalDay(dateStr, el) {
+      document.querySelectorAll('.cal-day.selected').forEach(d => d.classList.remove('selected'));
+      el.classList.add('selected');
+      const evs = EVENTS.filter(e => e.date === dateStr || (e.date <= dateStr && e.endDate && e.endDate >= dateStr));
+      const list = document.getElementById('cal-events-list');
+      list.innerHTML = evs.length ? evs.map(e => `<div class="cal-event-item" onclick="openModal(EVENTS.find(ev=>ev.id===${e.id}))"><div class="cal-event-dot"></div><div><strong>${e.name}</strong> · ${e.location}</div></div>`).join('') : '<p style="font-size:0.8rem;color:var(--on-surface-variant);padding:0.5rem 0">No events on this date.</p>';
+    }
+
+    function changeMonth(delta) {
+      calDate.setMonth(calDate.getMonth() + delta);
+      buildCalendar(calDate.getFullYear(), calDate.getMonth());
+    }
+
+    /* =============================================
+       NEWSLETTER
+    ============================================= */
+    document.getElementById('newsletter-form').addEventListener('submit', e => {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      btn.textContent = '✓ Subscribed!';
+      btn.style.background = '#28c882'; btn.style.color = '#fff';
+      setTimeout(() => { btn.textContent = 'Subscribe'; btn.style.background = ''; btn.style.color = ''; e.target.reset(); }, 3000);
+    });
+
+    /* =============================================
+       MY REGISTRATIONS RENDER
+    ============================================= */
+    let regTabFilter = 'upcoming';
+
+    document.querySelectorAll('.reg-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.reg-tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        regTabFilter = btn.dataset.regTab;
+        renderMyRegistrations();
+      });
+    });
+
+    function renderMyRegistrations() {
+      const wrap = document.getElementById('reg-cards-wrap');
+      const all = getRegistrations();
+      const today = new Date(); today.setHours(0,0,0,0);
+
+      const regs = regTabFilter === 'upcoming'
+        ? all.filter(r => new Date(r.eventDate) >= today)
+        : all;
+
+      if (regs.length === 0) {
+        wrap.innerHTML = `
+          <div class="reg-empty">
+            <span class="material-symbols-outlined">event_busy</span>
+            <p>${regTabFilter === 'upcoming' ? 'No upcoming registrations yet.' : 'You haven\'t registered for any events yet.'}</p>
+            <a href="#events-grid" class="btn btn--primary" style="font-size:0.7rem;text-decoration:none">Browse Events</a>
+          </div>`;
+        return;
+      }
+
+      wrap.innerHTML = `<div class="reg-grid">${regs.map(r => {
+        const d = new Date(r.eventDate);
+        const dateStr = d.toLocaleDateString('en-US', {weekday:'short', month:'long', day:'numeric', year:'numeric'});
+        const regDate = new Date(r.registeredAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+        const isPast = d < today;
+        return `
+          <div class="reg-card">
+            <div class="reg-card__top">
+              <img class="reg-card__img" src="${r.eventImg}" alt="${r.eventName}">
+              <div class="reg-card__info">
+                <div class="reg-card__name">${r.eventName}</div>
+                <div class="reg-card__meta">
+                  <span><span class="material-symbols-outlined">person</span>${r.firstName} ${r.lastName}</span>
+                  <span><span class="material-symbols-outlined">calendar_month</span>${dateStr}</span>
+                  <span><span class="material-symbols-outlined">location_on</span>${r.eventLoc}</span>
+                  <span><span class="material-symbols-outlined">mail</span>${r.email}</span>
+                </div>
+              </div>
+            </div>
+            <div class="reg-card__footer">
+              <span class="reg-card__ticket">${r.ticketType} × ${r.qty}</span>
+              <span class="reg-card__registered">Registered ${regDate}</span>
+              ${isPast
+                ? `<span style="font-size:0.6rem;font-family:var(--font-label);letter-spacing:0.1em;text-transform:uppercase;color:var(--on-surface-variant);opacity:0.5">Past Event</span>`
+                : `<button class="reg-card__cancel" onclick="cancelRegistration(${r.eventId})">Cancel</button>`
+              }
+            </div>
+          </div>`;
+      }).join('')}</div>`;
+    }
+
+    /* INIT */
+    renderEvents();
+    buildCalendar(calDate.getFullYear(), calDate.getMonth());
+    updateRsvpCount();
+    updateRsvpSummary();
+    renderMyRegistrations();
+  </script>
+</body>
+</html>
